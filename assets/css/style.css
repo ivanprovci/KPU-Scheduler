@@ -1,0 +1,123 @@
+/* Overall Custom CSS */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #081b29;
+}
+.font-weight-bold {
+    font-weight: 700;
+}
+
+
+
+
+/*Navigation Bar*/
+.navbar{
+    background-color: #081b29;
+}
+
+.navbar-brand{
+    background-color: #081b29;
+}
+
+.navbar-toggler{
+    background-color: limegreen;
+}
+
+.nav-link{
+    color: white;
+    background-color: black;
+    font-size: 18px;
+    font-weight: 450;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-link:hover{
+    color: white;
+    background-color: limegreen;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.link-custom{
+    color: white;
+    text-decoration: none;
+}
+
+
+
+
+
+
+/*Homepage section*/
+.welcome-section, .about-section, .features-section, .contact-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+.welcome-section {
+    background-color: #081b29;
+}
+.about-section, .features-section, .contact-section {
+    background-color: #1a2d40;
+}
+.about-section {
+    background-color: #273b50;
+}
+.features-section {
+    background-color: #334b60;
+}
+.contact-section {
+    background-color: #405a70;
+}
+.section-container {
+    max-width: 800px;
+}
+.btn-custom {
+    background-color: limegreen;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn-custom:hover {
+    background-color: darkgreen;
+}
+.feature-box {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+/*Login page*/
+.login-container {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    margin-top: 150px;
+}
+
+.login-container h3 {
+    color: #0e0d0d; 
+}
+
+.btn-primary {
+    background-color: limegreen; 
+}
+
+.btn-primary:hover {
+    background-color: green;
+}
