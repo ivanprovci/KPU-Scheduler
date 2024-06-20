@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes</title>
+    <title>Semesters</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -21,8 +21,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="/index.html">Home</a>
-                    <a class="nav-item nav-link" href="/pages/semesters.html">Semesters</a>
-                    <a class="nav-item nav-link active" href="/pages/classes.html">Classes</a>
+                    <a class="nav-item nav-link active" href="/pages/semesters.html">Semesters</a>
+                    <a class="nav-item nav-link" href="/pages/classes.html">Classes</a>
                     <a class="nav-item nav-link" href="/pages/timetable.html">Timetable</a>
                 </div>
             </div>
@@ -30,7 +30,19 @@
     </nav>
 
     <div class="container">
-
+        <h1>Semester Schedules</h1>
+        <div class="center-xy">
+            <div class="flex-col center-xy semester-container semester-select">
+                <h3>Previous Semester Schedules</h3>
+                <div id="previousSemesters" class="flex-col center-xy semester-container semester-select">
+                    <!-- placeholder buttons, generate them dynamically-->
+                    <button class="btn btn-outline-dark">Summer 2023</button>
+                    <button class="btn btn-outline-dark">Fall 2023</button>
+                </div>
+                <hr>
+                <button class="btn btn-primary">+ Create New Semester Schedule</button>
+            </div>
+        </div>
     </div>
 
 </body>
