@@ -32,6 +32,10 @@ hr {
 	width: 100%;
 }
 
+.flex {
+	display: flex;
+}
+
 .flex-col {
 	flex-direction: column;
 }
@@ -40,6 +44,10 @@ hr {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.justify-between {
+	justify-content: space-between;
 }
 
 .btn-primary {
@@ -115,7 +123,11 @@ section:nth-child(odd) {
 .semester-container {
 	width: 400px;
 }
-.semester-select > * {
+.semester-container > div * {
 	margin-top: 20px;
 	width: 100%;
+}
+
+.hidden {
+	display: none;
 }
