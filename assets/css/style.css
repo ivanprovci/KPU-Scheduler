@@ -50,12 +50,12 @@ hr {
 	justify-content: space-between;
 }
 
-.btn-primary {
+.btn {
 	background-color: var(--primary);
 	border: 1px solid var(--primary-darker);
 }
 
-.btn-primary:hover {
+.btn:hover {
 	background-color: var(--primary-darker);
 	border: 1px solid var(--primary-darker);
 }
@@ -131,3 +131,37 @@ section:nth-child(odd) {
 .hidden {
 	display: none;
 }
+
+
+/*View classes page*/
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	/* Adjust margin and padding for filter buttons */
+		.btn-group {
+			margin-bottom: 5px;
+		}
+	}
+	
+	@media (max-width: 576px) {
+	/* Stack filter buttons vertically on extra small screens */
+		.btn-group {
+			display: block;
+			margin-bottom: 10px;
+		}
+	}
+	
+	/* Ensure table remains scrollable on small screens */
+	.table-responsive {
+		overflow-x: auto;
+	}
+	
+	.set{
+		position: relative;
+		left: 45px;
+	}
+	.pos{
+		position: relative;
+		left: 0px;
+		top: 10px;
+		font-style:  italic;
+	}
