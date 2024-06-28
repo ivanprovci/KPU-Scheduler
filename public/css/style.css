@@ -75,6 +75,10 @@ hr {
 }
 
 /*Navigation Bar*/
+.navbar {
+	background-color: var(--primary);
+}
+
 .active {
 	text-decoration: underline;
 }
@@ -82,11 +86,16 @@ hr {
 .nav-link {
 	font-size: 18px;
 	margin-left: 15px;
+	font-weight: 700;
+}
+
+.nav-link {
+	color: white;
 }
 
 .nav-link:hover {
 	border-radius: 5px;
-	background-color: rgb(226, 226, 226);
+	text-decoration: underline;
 }
 
 .navbar-nav {
