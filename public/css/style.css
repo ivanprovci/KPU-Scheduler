@@ -74,6 +74,16 @@ hr {
 	box-shadow: none;
 }
 
+/* dropdown button when the menu is open */
+.show > .btn-primary.dropdown-toggle {
+	background-color: var(--primary);
+	border-color: var(--primary-darker);
+}
+
+.dropdown-item:active {
+	background-color: var(--primary);
+}
+
 /*Navigation Bar*/
 .navbar {
 	background-color: var(--primary);
