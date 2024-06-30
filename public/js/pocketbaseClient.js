@@ -1,35 +1,31 @@
-/*
+// public/js/pocketbaseClient.js
+import PocketBase from 'https://cdn.skypack.dev/pocketbase';
 
-import PocketBase from 'pocketbase';
+const pb = new PocketBase('http://127.0.0.1:8090'); // Ensure this URL is correct
 
-// Initialize PocketBase client
-const pb = new PocketBase('http://127.0.0.1:8090');
+const SECRET_EMAIL = 'chahaljas66@gmail.com'; // Replace with your PocketBase admin email
+const SECRET_PASSWORD = 'abc123123123'; // Replace with your PocketBase admin password
 
-// Authenticate user (if needed)
-async function authenticate() {
-    const authData = await pb.admins.authWithPassword('chahaljas66@gmail.com', 'abc123123123');
-    console.log(authData);
-}
+const authenticate = async () => {
+    console.log('Authenticating...');
+    try {
+        const authData = await pb.admins.authWithPassword(SECRET_EMAIL, SECRET_PASSWORD);
+        console.log('Authenticated:', authData);
+    } catch (error) {
+        console.error('Authentication error:', error);
+        throw error;
+    }
+};
 
-// fetch a paginated records list
-const resultList = await pb.collection('Courses').getList(1, 50, {
-    filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
-});
-
-// you can also fetch all records at once via getFullList
-const records = await pb.collection('Courses').getFullList({
-    sort: '-created',
-});
-
-const record = await pb.collection('Courses').getOne('RECORD_ID', {
-    expand: 'relField1,relField2.subRelField',
-});
-
-
-
-// Call the functions
-authenticate();
-fetchData();
-addRecord();
-
-*/
+export const createSemester = async (name) => {
+    try {
+        await authenticate();
+        console.log('Creating semester:', name);
+        const record = await pb.collection('Semester').create({ Name: name });
+        console.log('Semester created:', record);
+        return record;
+    } catch (error) {
+        console.error('Error in createSemester:', error);
+        throw error;
+    }
+};
