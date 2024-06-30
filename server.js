@@ -17,6 +17,9 @@ app.use(
 	})
 )
 
+// Serve static files from the "db" directory.
+app.use('/db', express.static(path.join(__dirname, 'db')));
+
 // middleware for getting data from forms
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
