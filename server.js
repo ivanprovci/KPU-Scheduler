@@ -1,4 +1,6 @@
 const express = require("express")
+const {spawn} = require("child_process")
+const path = require("path")
 const app = express()
 const port = 3000
 
@@ -38,4 +40,30 @@ app.get("*", (req, res) => {
 	res.status(404).render("404")
 })
 
-app.listen(port, () => console.log(`http://localhost:${port}`))
+app.listen(port, () => {
+	console.log(`http://localhost:${port}`);
+	startPocketBase();
+});
+
+
+//Function to start pocket base!
+function startPocketBase() {
+    const pocketBasePath = path.join(__dirname, "pocketbase.exe");
+    const pocketBaseProcess = spawn(pocketBasePath);
+
+    pocketBaseProcess.stdout.on("data", (data) => {
+        console.log(`PocketBase stdout: ${data}`);
+    });
+
+    pocketBaseProcess.stderr.on("data", (data) => {
+        console.error(`PocketBase stderr: ${data}`);
+    });
+
+    pocketBaseProcess.on("close", (code) => {
+        if (code === 0) {
+            console.log("PocketBase started successfully");
+        } else {
+            console.error(`PocketBase failed to start with code ${code}`);
+        }
+    });
+}
