@@ -32,8 +32,13 @@ newSemesterForm.addEventListener("submit", async (event) => {
             // Create a new button for the newly created semester and add it to the container
             const newButton = document.createElement("button");
             newButton.className = "btn btn-outline-dark";
-            newButton.textContent = semesterName;
+            newButton.textContent = semesterName; // Ensure the button has the semester name
+            newButton.setAttribute("data-semester-id", record.id); // Set semester ID
             previousSemestersContainer.appendChild(newButton);
+
+            newButton.addEventListener("click", () => {
+                window.location.href = `classes.html?semesterId=${record.id}`; // Navigate to classes page
+            });
 
             // Reset the form and toggle visibility of the form and button
             newSemesterForm.reset();
