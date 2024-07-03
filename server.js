@@ -1,5 +1,5 @@
 const express = require("express")
-const {spawn} = require("child_process")
+const { spawn } = require("child_process")
 const path = require("path")
 const app = express()
 const port = 3000
@@ -18,7 +18,7 @@ app.use(
 )
 
 // Serve static files from the "db" directory.
-app.use('/db', express.static(path.join(__dirname, 'db')));
+app.use("/db", express.static(path.join(__dirname, "db")))
 
 // middleware for getting data from forms
 app.use(express.urlencoded({ extended: true }))
@@ -44,29 +44,5 @@ app.get("*", (req, res) => {
 })
 
 app.listen(port, () => {
-	console.log(`http://localhost:${port}`);
-	startPocketBase();
-});
-
-
-//Function to start pocket base!
-function startPocketBase() {
-    const pocketBasePath = path.join(__dirname, "pocketbase.exe");
-    const pocketBaseProcess = spawn(pocketBasePath);
-
-    pocketBaseProcess.stdout.on("data", (data) => {
-        console.log(`PocketBase stdout: ${data}`);
-    });
-
-    pocketBaseProcess.stderr.on("data", (data) => {
-        console.error(`PocketBase stderr: ${data}`);
-    });
-
-    pocketBaseProcess.on("close", (code) => {
-        if (code === 0) {
-            console.log("PocketBase started successfully");
-        } else {
-            console.error(`PocketBase failed to start with code ${code}`);
-        }
-    });
-}
+	console.log(`http://localhost:${port}`)
+})
