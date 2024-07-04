@@ -35,7 +35,10 @@
         <div class="center-xy mt-4">
             <div class="semester-container">
                 <div>
-                    <h3>Previous Semester Schedules</h3>
+                    <h3 class="text-center">Previous Semester Schedules</h3>
+                    <div id="loading" class="center-xy">
+                        <span class="loading"></span>
+                    </div>
                     <div id="previousSemesters" class="flex-col center-xy">
                         <!-- placeholder buttons, generate them dynamically-->
                     </div>
@@ -48,7 +51,8 @@
                 <form id="semesterForm" class="hidden">
                     <div class="form-group">
                         <label for="semesterName">Semester Name:</label>
-                        <input type="text" class="form-control" placeholder="Semester Name" id="semesterName" name="semesterName" required>
+                        <input type="text" class="form-control" placeholder="Semester Name" id="semesterName"
+                            name="semesterName" required>
                     </div>
                     <div class="flex justify-between pt-2">
                         <button type="reset" id="btnCancel" class="btn btn-outline-dark px-4">Cancel</button>
@@ -59,9 +63,9 @@
         </div>
     </div>
 
-     <!--Required Scripts-->
-     
-    <script src="js/create-new-semester.js" type="module" defer></script>
+    <!--Required Scripts-->
+
+    <script src="js/semesters-page.js" type="module" defer></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
