@@ -1,0 +1,167 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--primary: #862633;
+	--primary-darker: #641b25;
+	--bg-light-gray: #eee;
+	--bg-primary: #fff;
+}
+
+body {
+	margin: 0;
+}
+
+a {
+	color: black;
+}
+
+a:hover {
+	color: black;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+hr {
+	width: 100%;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.center-xy {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.btn {
+	background-color: var(--primary);
+	border: 1px solid var(--primary-darker);
+}
+
+.btn:hover {
+	background-color: var(--primary-darker);
+	border: 1px solid var(--primary-darker);
+}
+
+.btn-primary:focus {
+	box-shadow: none !important;
+}
+
+.btn-primary:active {
+	box-shadow: none;
+	background-color: var(--primary) !important;
+	border-color: var(--primary-darker) !important;
+}
+
+.btn:focus {
+	box-shadow: none;
+}
+
+/*Navigation Bar*/
+.active {
+	text-decoration: underline;
+}
+
+.nav-link {
+	font-size: 18px;
+	margin-left: 15px;
+}
+
+.nav-link:hover {
+	border-radius: 5px;
+	background-color: rgb(226, 226, 226);
+}
+
+.navbar-nav {
+	margin-left: auto;
+}
+
+/* Homepage section */
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 20px;
+	text-align: center;
+}
+
+section:nth-child(odd) {
+	background-color: #eee;
+}
+
+.section-container {
+	max-width: 800px;
+}
+
+/* Login page */
+.login-container {
+	background-color: #ffffff;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	margin-top: 100px;
+}
+
+/* Semesters page */
+.semester-container {
+	width: 400px;
+}
+.semester-container > div * {
+	margin-top: 20px;
+	width: 100%;
+}
+
+.hidden {
+	display: none;
+}
+
+
+/*View classes page*/
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	/* Adjust margin and padding for filter buttons */
+		.btn-group {
+			margin-bottom: 5px;
+		}
+	}
+	
+	@media (max-width: 576px) {
+	/* Stack filter buttons vertically on extra small screens */
+		.btn-group {
+			display: block;
+			margin-bottom: 10px;
+		}
+	}
+	
+	/* Ensure table remains scrollable on small screens */
+	.table-responsive {
+		overflow-x: auto;
+	}
+	
+	.set{
+		position: relative;
+		left: 45px;
+	}
+	.pos{
+		position: relative;
+		left: 0px;
+		top: 10px;
+		font-style:  italic;
+	}
