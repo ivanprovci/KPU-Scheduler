@@ -229,3 +229,66 @@ section:nth-child(odd) {
 		transform: rotate(360deg);
 	}
 }
+
+
+/* Styles for the schedule table */
+.table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    margin: 20px auto; /* Center the table with margin on top and bottom, auto on left and right */
+    padding: 0 20px; /* Add some padding for extra spacing on left and right */
+    max-width: 96%; /* Set a maximum width for the container */
+}
+
+.schedule-table {
+    table-layout: auto; /* Automatically adjust column widths */
+    width: 100%; /* Table takes up full width of the container */
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: left;
+}
+
+.schedule-table th, .schedule-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.schedule-table th {
+    background-color: #f4f4f4;
+}
+
+.schedule-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.schedule-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.schedule-table td[colspan] {
+    text-align: center;
+    color: #999; /* Optional: for placeholder rows */
+}
+
+/* Filters styling */
+.filter-container {
+    display: table-row; /* Ensure the container behaves like a table row */
+}
+
+.filter-container th {
+    display: table-cell; /* Ensure cells align properly */
+    padding: 0; /* Remove default padding for filter row */
+}
+
+.filter-input {
+    width: 100%; /* Adjust width to fit the column */
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.table-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
