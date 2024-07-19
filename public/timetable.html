@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,170 +30,206 @@
             </div>
         </div>
     </nav>
+    <div class="table-container">
 
-    <div class="container mt-4">
-        <div class="row set">
-            <div class="col">
-                <h5>Filter Options: </h5>
-                <div class="btn-group" role="group" aria-label="Filter Buttons">
-                    <!-- Dropdown for Department -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Department
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Department 1</a>
-                            <a class="dropdown-item" href="#">Add Department 2</a>
-                            <a class="dropdown-item" href="#">Add Department 3</a>
-                            <!-- Add more departments as needed -->
-                        </div>
-                    </div>
+        <!-- Add a table name header here -->
+        <h2 class="table-title">Course Timetable</h2>
 
-                    <!-- Dropdown for CRN -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            CRN
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add CRN 1</a>
-                            <a class="dropdown-item" href="#">Add CRN 2</a>
-                            <a class="dropdown-item" href="#">Add CRN 3</a>
-                            <!-- Add more CRNs as needed -->
-                        </div>
-                    </div>
+        <table class="schedule-table">
+            <thead>
+                <tr class="filter-container">
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    <th><input type="text" class="filter-input"></th>
+                    
+                </tr>
+                <tr>
+                    <th>CRN</th>
+                    <th>Subject</th>
+                    <th>Course</th>
+                    <th>Section</th>
+                    <th>Campus</th>
+                    <th>Class Size</th>
+                    <th>Status</th>
+                    <th>Instructional Method</th>
+                    <th>Matrix Code</th>
+                    <th>Banner Codes</th>
+                    <th>Exam Y/N</th>
+                    <th>Meeting Type</th>
+                    <th>Session</th>
+                    <th>Non-Standard Start Date</th>
+                    <th>Non-Standard End Date</th>
+                    <th>M</th>
+                    <th>T</th>
+                    <th>W</th>
+                    <th>R</th>
+                    <th>F</th>
+                    <th>S</th>
+                    <th>U</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Exam Date & Time</th>
+                    <th>Room Type</th>
+                    <th>Room Preferences</th>
+                    <th>Instructor (Last Name, First Name)</th>
+                    <th>Crosslist Code</th>
+                    <th>Link ID</th>
+                    <th>Additional Information</th>
+                    <th>Zero Textbook Cost / Adobe Creative Cloud</th>
+                    <th>Program Restrictions</th>
+                    <th>Reserved Seats</th>
+                    <th>Overflow (Y/N)</th>
+                    <th>Date Reserves to be Removed (One Date Only)</th>
+                    <th>Fee Detail Code</th>
+                    <th>Add'tl Mandatory Course Fee</th>
+                    <th>Funding Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically inserted here -->
 
-                    <!-- Dropdown for Instructional Method -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Instructional Method
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Method 1</a>
-                            <a class="dropdown-item" href="#">Add Method 2</a>
-                            <a class="dropdown-item" href="#">Add Method 3</a>
-                            <!-- Add more instructional methods as needed -->
-                        </div>
-                    </div>
+                <!-- Example rows -->
 
-                    <!-- Dropdown for Date/Time -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Date/Time
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Time 1</a>
-                            <a class="dropdown-item" href="#">Add Time 2</a>
-                            <a class="dropdown-item" href="#">Add Time 3</a>
-                            <!-- Add more date/time options as needed -->
-                        </div>
-                    </div>
+                <tr>
+                    <td>12345</td>
+                    <td>Math</td>
+                    <td>101</td>
+                    <td>A</td>
+                    <td>Main</td>
+                    <td>30</td>
+                    <td>Open</td>
+                    <td>Lecture</td>
+                    <td>MC01</td>
+                    <td>BC01</td>
+                    <td>Y</td>
+                    <td>In-person</td>
+                    <td>Fall</td>
+                    <td>01/09/2024</td>
+                    <td>15/12/2024</td>
+                    <td>M</td>
+                    <td>T</td>
+                    <td>W</td>
+                    <td>R</td>
+                    <td>F</td>
+                    <td>S</td>
+                    <td>U</td>
+                    <td>08:00 AM</td>
+                    <td>10:00 AM</td>
+                    <td>15/12/2024 10:00 AM</td>
+                    <td>Lab</td>
+                    <td>Preference A</td>
+                    <td>Smith, John</td>
+                    <td>CL01</td>
+                    <td>L01</td>
+                    <td>None</td>
+                    <td>Yes</td>
+                    <td>N</td>
+                    <td>None</td>
+                    <td>Y</td>
 
-                    <!-- Dropdown for Class Name -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Class Name
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Class Name 1</a>
-                            <a class="dropdown-item" href="#">Add Class Name 2</a>
-                            <a class="dropdown-item" href="#">Add Class Name 3</a>
-                            <!-- Add more class names as needed -->
-                        </div>
-                    </div>
+                    <td>01/12/2024</td>
+                    <td>FDC01</td>
+                    <td>50</td>
+                    <td>Scholarship</td>
+                </tr>
 
-                    <!-- Dropdown for Teacher Name -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Teacher Name
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Teacher 1</a>
-                            <a class="dropdown-item" href="#">Add Teacher 2</a>
-                            <a class="dropdown-item" href="#">Add Teacher 3</a>
-                            <!-- Add more teacher names as needed -->
-                        </div>
-                    </div>
+                <tr>
+                    <td>999</td>
+                    <td>Info</td>
+                    <td>101</td>
+                    <td>A</td>
+                    <td>Main</td>
+                    <td>30</td>
+                    <td>Open</td>
+                    <td>Lecture</td>
+                    <td>MC01</td>
+                    <td>BC01</td>
+                    <td>Y</td>
+                    <td>In-person</td>
+                    <td>Fall</td>
+                    <td>01/09/2024</td>
+                    <td>15/12/2024</td>
+                    <td>M</td>
+                    <td>T</td>
+                    <td>W</td>
+                    <td>R</td>
+                    <td>F</td>
+                    <td>S</td>
+                    <td>U</td>
+                    <td>08:00 AM</td>
+                    <td>10:00 AM</td>
+                    <td>15/12/2024 10:00 AM</td>
+                    <td>Lab</td>
+                    <td>Preference A</td>
+                    <td>Smith, John</td>
+                    <td>CL01</td>
+                    <td>L01</td>
+                    <td>None</td>
+                    <td>Yes</td>
+                    <td>Y</td>
+                    <td>None</td>
+                    <td>Y</td>
+                    <td>01/12/2024</td>
+                    <td>FDC01</td>
+                    <td>50</td>
+                    <td>Scholarship</td>
+                </tr>
+                <!-- More example rows can be added here -->
 
-                    <!-- Dropdown for Class Number -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Class Number
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add class Number 1</a>
-                            <a class="dropdown-item" href="#">Add classNumber 2</a>
-                            <a class="dropdown-item" href="#">Add class Number 3</a>
-                            <!-- Add more class numbers as needed -->
-                        </div>
-                    </div>
 
-                    <!-- Dropdown for Location -->
-                    <div class="btn-group mr-1">
-                        <button type="button" class="btn btn-primary filter-button dropdown-toggle rounded"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Location
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Location 1</a>
-                            <a class="dropdown-item" href="#">Add Location 2</a>
-                            <a class="dropdown-item" href="#">Add Location 3</a>
-                            <!-- Add more locations as needed -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <!-- Example empty rows for placeholders -->
 
-        <div class="row mt-4">
-            <div class="col pos">
-                <h5>Current Created Schedule:</h5>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Monday</th>
-                            <th scope="col">Tuesday</th>
-                            <th scope="col">Wednesday</th>
-                            <th scope="col">Thursday</th>
-                            <th scope="col">Friday</th>
-                            <th scope="col">Saturday</th>
-                            <th scope="col">Sunday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- This is where dynamic content will be populated -->
+                <tr>
+                    <td colspan="38">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="38">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="38">&nbsp;</td>
+                </tr>
 
-                        <tr>
-                            <td>Monday Classes</td>
-                            <td>Tuesday Classes</td>
-                            <td>Wednesday Classes</td>
-                            <td>Thursday Classes</td>
-                            <td>Friday Classes</td>
-                            <td>Saturday Classes</td>
-                            <td>Sunday Classes</td>
-
-                            <!-- List classes for each day here. The filter options will display the classes
-                         that the filter has toggled -->
-                        </tr>
-                        <tr>
-                            <!-- Add more rows as needed -->
-                        </tr>
-                        <!-- Add more rows as needed -->
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
         </script>
 
@@ -204,6 +241,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
         </script>
 
+    <script src="js/timetable.js"></script>
+    <script src="js/filters.js"></script>
 </body>
-
 </html>
