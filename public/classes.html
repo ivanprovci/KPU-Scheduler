@@ -30,17 +30,17 @@
 
     <div class="container mt-5">
         <h2>Add Schedule Details</h2>
+        <div id="semesterName" class="mb-3"></div>
         <form id="classForm">
-            <input type="hidden" id="semesterId" name="semesterId">
+            <input type="hidden" id="semesterId" name="semesterId" value="">
             <div id="classEntry" class="class-entry border p-3 mb-3">
                 <div class="form-group">
-                    <label for="crn">CRN</label>
-                    <input type="number" class="form-control" name="crn" placeholder="Enter CRN"
-                        oninput="this.value = this.value.slice(0, 5)">
+                    <label for="CRN">CRN</label>
+                    <input type="number" class="form-control" name="CRN" placeholder="Enter CRN" oninput="this.value = this.value.slice(0, 5)">
                 </div>
                 <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <select class="form-control" name="subject" id="subject">
+                    <label for="Subject">Subject</label>
+                    <select class="form-control" name="Subject">
                         <option>Select Subject</option>
                         <option>INFO</option>
                         <option>PHIL</option>
@@ -49,83 +49,78 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="classNumber">Class Number</label>
-                    <select class="form-control" name="classNumber" id="classNumber">
-                    </select>
+                    <label for="Class_Number">Class Number</label>
+                    <input type="number" class="form-control" name="Class_Number" placeholder="Enter Class Number" oninput="this.value = this.value.slice(0, 4)">
                 </div>
                 <div class="form-group">
-                    <label for="section">Section</label>
-                    <input type="text" class="form-control" name="section" placeholder="Enter Section"
-                        oninput="this.value = this.value.slice(0, 3)">
+                    <label for="Section">Section</label>
+                    <input type="text" class="form-control" name="Section" placeholder="Enter Section" oninput="this.value = this.value.slice(0, 3)">
                 </div>
                 <div class="form-group">
-                    <label for="campus">Campus</label>
-                    <select class="form-control" name="campus">
+                    <label for="Campus">Campus</label>
+                    <select class="form-control" name="Campus">
                         <option>Richmond</option>
                         <option>Surrey</option>
                         <option>Langley</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="classSize">Class Size</label>
-                    <input type="number" class="form-control" name="classSize" placeholder="Enter Class Size"
-                        oninput="this.value = this.value.slice(0, 2)">
+                    <label for="Class_Size">Class Size</label>
+                    <input type="number" class="form-control" name="Class_Size" placeholder="Enter Class Size" oninput="this.value = this.value.slice(0, 2)">
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
-                    <select class="form-control" name="status">
+                    <label for="Status">Status</label>
+                    <select class="form-control" name="Status">
                         <option>Active</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="instructionalMethod">Instructional Method</label>
-                    <select class="form-control" name="instructionalMethod">
+                    <label for="Instructional_Method">Instructional Method</label>
+                    <select class="form-control" name="Instructional_Method">
                         <option>In-person</option>
                         <option>Online Synchronous</option>
                         <option>Blended Synchronous</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="matrixCode">Matrix Code</label>
-                    <input type="text" class="form-control" name="matrixCode" placeholder="Enter Matrix Code"
-                        oninput="this.value = this.value.slice(0, 3)">
+                    <label for="Matrix_Code">Matrix Code</label>
+                    <input type="text" class="form-control" name="Matrix_Code" placeholder="Enter Matrix Code" oninput="this.value = this.value.slice(0, 3)">
                 </div>
                 <div class="form-group">
-                    <label for="bannerCodes">Banner Codes</label>
-                    <input type="text" class="form-control" name="bannerCodes" placeholder="Enter Banner Codes"
-                        oninput="this.value = this.value.slice(0, 2)">
+                    <label for="Banner_Codes">Banner Codes</label>
+                    <input type="text" class="form-control" name="Banner_Codes" placeholder="Enter Banner Codes" oninput="this.value = this.value.slice(0, 2)">
                 </div>
                 <div class="form-group">
-                    <label for="exam">Exam Y/N</label>
-                    <select class="form-control" name="exam">
+                    <label for="Exam_Y_N">Exam Y/N</label>
+                    <select class="form-control" name="Exam_Y_N">
                         <option>Y</option>
                         <option>N</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="meetingType">Meeting Type</label>
-                    <select class="form-control" name="meetingType">
+                    <label for="Meeting_Type">Meeting Type</label>
+                    <select class="form-control" name="Meeting_Type">
                         <option>Class</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="session">Session</label>
-                    <select class="form-control" name="session">
+                    <label for="Session">Session</label>
+                    <select class="form-control" name="Session">
                         <option>Full</option>
                         <option>Online</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="nonStartDate">Non-Standard Start Date</label>
-                    <input type="date" class="form-control" name="nonStartDate">
+                    <label for="Non_Standard_Start_Date">Non-Standard Start Date</label>
+                    <input type="date" class="form-control" name="Non_Standard_Start_Date">
                 </div>
                 <div class="form-group">
-                    <label for="endDate">Non-Standard End Date</label>
-                    <input type="date" class="form-control" name="endDate">
+                    <label for="Non_Standard_End_Date">Non-Standard End Date</label>
+                    <input type="date" class="form-control" name="Non_Standard_End_Date">
                 </div>
                 <div class="form-group">
-                    <label for="weekDay">Week Day</label>
-                    <select class="form-control" name="weekDay">
+                    <label for="Week_Day">Week Day</label>
+                    <select class="form-control" name="Week_Day">
                         <option>Monday</option>
                         <option>Tuesday</option>
                         <option>Wednesday</option>
@@ -136,33 +131,34 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="startTime">Start Time</label>
-                    <input type="time" class="form-control" name="startTime">
+                    <label for="Start_Time">Start Time</label>
+                    <input type="time" class="form-control" name="Start_Time">
                 </div>
                 <div class="form-group">
-                    <label for="endTime">End Time</label>
-                    <input type="time" class="form-control" name="endTime">
+                    <label for="End_Time">End Time</label>
+                    <input type="time" class="form-control" name="End_Time">
                 </div>
                 <div class="form-group">
-                    <label for="examDateTime">Exam Date & Time</label>
-                    <input type="datetime-local" class="form-control" name="examDateTime">
+                    <label for="Exam_Date_Time">Exam Date & Time</label>
+                    <input type="datetime-local" class="form-control" name="Exam_Date_Time">
                 </div>
                 <div class="form-group">
-                    <label for="roomType">Room Type</label>
-                    <input type="text" class="form-control" name="roomType" placeholder="Enter Room Type">
+                    <label for="Room_Type">Room Type</label>
+                    <input type="text" class="form-control" name="Room_Type" placeholder="Enter Room Type">
                 </div>
                 <div class="form-group">
-                    <label for="roomPreferences">Room Preferences</label>
-                    <input type="text" class="form-control" name="roomPreferences" placeholder="Enter Room Preferences">
+                    <label for="Room_Preferences">Room Preferences</label>
+                    <input type="text" class="form-control" name="Room_Preferences" placeholder="Enter Room Preferences">
                 </div>
                 <div class="form-group">
-                    <label for="instructor">Instructor</label>
-                    <input type="text" class="form-control" name="instructor" placeholder="Enter Instructor Name">
+                    <label for="Instructor">Instructor</label>
+                    <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name">
                 </div>
             </div>
             <button type="button" class="btn btn-secondary mb-0" id="addClass">Add Another Class</button>
-            <button type="button" class="btn btn-primary" id="exportCSV">Export to CSV</button>
+            <button type="submit" class="btn btn-primary" id="exportCSV">Export to CSV</button>
         </form>
+        <div id="classesContainer"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -178,79 +174,110 @@
         crossorigin="anonymous"></script>
 
     <script>
-        document.querySelector('select[name="subject"]').addEventListener('change', function () {
-            const subject = this.value;
-            const classNumberSelect = document.getElementById('classNumber');
-            classNumberSelect.innerHTML = '';
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const semesterId = urlParams.get('semesterId');
+            document.getElementById('semesterId').value = semesterId;
+            document.getElementById('addClass').addEventListener('click', function () {
+                const form = document.getElementById('classForm');
+                const formData = new FormData(form);
+                const classData = {};
 
-            const classNumbers = {
-                'Select':[],
-                'INFO': ["1100", "1110", "1111", "1112", "1113", "1115", "1130", "1140", "1211", "1212", "1213", "1214", "1230", "2311", "2312", "2313", "2315", "2342", "2411", "2413", "2416", "3033", "3109", "3110", "3135", "3150", "3171", "3180", "3225", "3235", "3240", "3245", "3250", "3280", "3390", "4105", "4110", "4115", "4120", "4125", "4190", "4235", "4260", "4290", "4310", "4330", "4370", "4381"],
-                'PHIL': ["1150", "3033", "3109"],
-                'BUQU': ["1130", "1230"],
-                'MATH': ["1115", "1140"]
-            };
-
-            if (subject in classNumbers) {
-                classNumbers[subject].forEach(number => {
-                    const option = document.createElement('option');
-                    option.value = number;
-                    option.textContent = number;
-                    classNumberSelect.appendChild(option);
+                formData.forEach((value, key) => {
+                    if (key === 'Exam_Date_Time') {
+                        classData[key] = new Date(value).toISOString(); // Convert date to ISO string
+                    } else {
+                        classData[key] = value;
+                    }
                 });
-            }
-        });
 
-        const classData = [];
+                // Map week day to single letter
+                const weekDayMap = {
+                    'Monday': 'M',
+                    'Tuesday': 'T',
+                    'Wednesday': 'W',
+                    'Thursday': 'R',
+                    'Friday': 'F',
+                    'Saturday': 'S',
+                    'Sunday': 'U'
+                };
+                const weekDay = formData.get('Week_Day');
+                classData.Week_Day = weekDayMap[weekDay] || '';
 
-        document.getElementById('addClass').addEventListener('click', () => {
-            addClassData();
-        });
+                console.log("Class data to be sent:", classData); // Log the data
 
-        document.getElementById('exportCSV').addEventListener('click', () => {
-            addClassData();
+                if (Object.values(classData).every(x => x === "" || x === null)) {
+                    alert("Please fill out all fields before adding another class.");
+                    return;
+                }
 
-            if (classData.length === 0) {
-                alert("No class data to export!");
-                return;
-            }
-
-            let csvContent = "data:text/csv;charset=utf-8,";
-            const headers = "CRN,Subject,Class Number,Section,Campus,Class Size,Status,Instructional Method,Matrix Code,Banner Codes,Exam,Meeting Type,Session,Non-Standard Start Date,Non-Standard End Date,M,T,W,R,F,S,U,Start Time,End Time,Exam Date & Time,Room Type,Room Preferences,Instructor\n";
-            csvContent += headers;
-
-            classData.forEach(classEntry => {
-                const { crn, subject, classNumber, section, campus, classSize, status, instructionalMethod, matrixCode, bannerCodes, exam, meetingType, session, nonStartDate, endDate, weekDay, startTime, endTime, examDateTime, roomType, roomPreferences, instructor } = classEntry;
-                const row = `${crn},${subject},${classNumber},${section},${campus},${classSize},${status},${instructionalMethod},${matrixCode},${bannerCodes},${exam},${meetingType},${session},${nonStartDate},${endDate},${weekDay.includes("Monday") ? 'M' : ' '},${weekDay.includes("Tuesday") ? 'T' : ' '},${weekDay.includes("Wednesday") ? 'W' : ' '},${weekDay.includes("Thursday") ? 'R' : ' '},${weekDay.includes("Friday") ? 'F' : ' '},${weekDay.includes("Saturday") ? 'S' : ' '},${weekDay.includes("Sunday") ? 'U' : ' '},${startTime},${endTime},${examDateTime},${roomType},${roomPreferences},${instructor}\n`;
-                csvContent += row;
+                fetch('/classes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(classData)
+                }).then(response => {
+                    if (response.ok) {
+                        alert("Class data saved successfully.");
+                        form.reset();
+                        document.getElementById('semesterId').value = semesterId; // Reset semesterId
+                    } else {
+                        response.json().then(data => {
+                            alert(`Error saving class data: ${data.message}`);
+                            console.error("Server error response:", data);
+                        });
+                    }
+                }).catch(error => {
+                    alert("Error saving class data.");
+                    console.error("Error in saveClassData:", error);
+                });
             });
 
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "classes.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
+            document.getElementById('classForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const classEntries = document.querySelectorAll('.class-entry');
+                const headers = ["CRN", "Subject", "Class_Number", "Section", "Campus", "Class_Size", "Status", "Instructional_Method", "Matrix_Code", "Banner_Codes", "Exam_Y_N", "Meeting_Type", "Session", "Non_Standard_Start_Date", "Non_Standard_End_Date", "Week_Day", "Start_Time", "End_Time", "Exam_Date_Time", "Room_Type", "Room_Preferences", "Instructor"];
+                const rows = [headers.join(',')];
 
-        function addClassData() {
-            const form = document.getElementById('classForm');
-            const formData = new FormData(form);
-            const classEntry = {};
+                classEntries.forEach(entry => {
+                    const crn = entry.querySelector('input[name="CRN"]').value;
+                    const subject = entry.querySelector('select[name="Subject"]').value;
+                    const classNumber = entry.querySelector('input[name="Class_Number"]').value;
+                    const section = entry.querySelector('input[name="Section"]').value;
+                    const campus = entry.querySelector('select[name="Campus"]').value;
+                    const classSize = entry.querySelector('input[name="Class_Size"]').value;
+                    const status = entry.querySelector('select[name="Status"]').value;
+                    const instructionalMethod = entry.querySelector('select[name="Instructional_Method"]').value;
+                    const matrixCode = entry.querySelector('input[name="Matrix_Code"]').value;
+                    const bannerCodes = entry.querySelector('input[name="Banner_Codes"]').value;
+                    const exam = entry.querySelector('select[name="Exam_Y_N"]').value;
+                    const meetingType = entry.querySelector('select[name="Meeting_Type"]').value;
+                    const session = entry.querySelector('select[name="Session"]').value;
+                    const nonStartDate = entry.querySelector('input[name="Non_Standard_Start_Date"]').value;
+                    const endDate = entry.querySelector('input[name="Non_Standard_End_Date"]').value;
+                    const weekDay = weekDayMap[entry.querySelector('select[name="Week_Day"]').value] || '';
+                    const startTime = entry.querySelector('input[name="Start_Time"]').value;
+                    const endTime = entry.querySelector('input[name="End_Time"]').value;
+                    const examDateTime = new Date(entry.querySelector('input[name="Exam_Date_Time"]').value).toISOString();
+                    const roomType = entry.querySelector('input[name="Room_Type"]').value;
+                    const roomPreferences = entry.querySelector('input[name="Room_Preferences"]').value;
+                    const instructor = entry.querySelector('input[name="Instructor"]').value;
 
-            formData.forEach((value, key) => {
-                classEntry[key] = value;
+                    const row = [crn, subject, classNumber, section, campus, classSize, status, instructionalMethod, matrixCode, bannerCodes, exam, meetingType, session, nonStartDate, endDate, weekDay, startTime, endTime, examDateTime, roomType, roomPreferences, instructor].join(',');
+                    rows.push(row);
+                });
+
+                let csvContent = "data:text/csv;charset=utf-8," + rows.join("\n");
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "classes_data.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             });
-
-            // Only add if the classEntry has unique values, not an empty form
-            const isEmpty = Object.values(classEntry).every(x => x === "" || x === null);
-            if (!isEmpty) {
-                classData.push(classEntry);
-            }
-
-            form.reset();
-        }
+        });
     </script>
 </body>
 </html>
