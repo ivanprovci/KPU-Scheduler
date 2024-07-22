@@ -25,7 +25,7 @@ router.post("/semesters", async (req, res) => {
 
 	try {
 		const newSemester = await createSemester(semesterName)
-		res.status(201).json({
+		res.status(200).json({
 			message: "Semester was created successfully.",
 			Name: newSemester.Name,
 			id: newSemester.id,

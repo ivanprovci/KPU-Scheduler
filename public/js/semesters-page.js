@@ -32,7 +32,7 @@ newSemesterForm.addEventListener("submit", async (event) => {
 	const inputSemesterNameTrimmed = inputSemesterName.value.trim()
 	try {
 		// send a post req to semesters endpoint, which creates a new semester
-		const record = await fetch("/semesters/semeters", {
+		const record = await fetch("/semesters/semesters", {
 			method: "post",
 			headers: {
 				"Content-Type": "application/json",
