@@ -94,4 +94,13 @@ document.addEventListener('DOMContentLoaded', function () {
         link.click();
         document.body.removeChild(link);
     });
+
+        document.getElementById('additionalInfoCheck').addEventListener('change', function () {
+        const additionalInfo = document.getElementById('additionalInfo');
+        if (this.checked) {
+            additionalInfo.style.display = 'block';
+        } else {
+            additionalInfo.style.display = 'none';
+        }
+    });
 });
