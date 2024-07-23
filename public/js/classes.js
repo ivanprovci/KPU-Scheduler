@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         classData['Link_ID'] = formData.get('Link_ID');
         classData['Additional_Information'] = formData.get('Additional_Information');
         classData['Zero_Textbook_Cost_Adobe_Creative_Cloud'] = formData.get('Zero_Textbook_Cost_Adobe_Creative_Cloud');
-        classData['Program_Restriction'] = formData.get('Program_Restriction');
+        classData['Program_Restrictions'] = formData.get('Program_Restrictions');
         classData['Reserved_Seats'] = formData.get('Reserved_Seats');
         classData['Overflow_Y_N'] = formData.get('Overflow_Y_N');
         classData['Date_Reserves_to_be_Removed'] = formData.get('Date_Reserves_to_be_Removed');
