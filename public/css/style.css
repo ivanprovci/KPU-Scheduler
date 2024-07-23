@@ -204,6 +204,12 @@ section:nth-child(odd) {
 	margin-bottom: 5px;
 }
 
+/* Style for the placeholder text in specific input elements */
+.form-group input::placeholder {
+    color: #d3d3d3; /* Light gray color */
+    opacity: 1; /* Full opacity */
+}
+
 /* Add border and background color to make class entries distinct */
 .class-entry:not(:last-child) {
 	margin-bottom: 20px;
@@ -228,6 +234,11 @@ section:nth-child(odd) {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+/* Add Additional Info Check Box*/
+#additionalInfoCheck + label {
+    font-weight: bold;
 }
 
 

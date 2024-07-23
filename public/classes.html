@@ -30,7 +30,15 @@
 
     <div class="container mt-5">
         <h2>Add Schedule Details</h2>
+
+        <!-- worked previously
         <div id="semesterName" class="mb-3"></div>
+        -->
+        <div class="form-group">
+            <label for="semesterNameDisplay">Selected Semester Name:</label>
+            <span id="semesterNameDisplay" class="form-control-static"></span>
+        </div> 
+
         <form id="classForm">
             <input type="hidden" id="semesterId" name="semesterId" value="">
             <div id="classEntry" class="class-entry border p-3 mb-3">
@@ -152,8 +160,63 @@
                     <label for="Instructor">Instructor</label>
                     <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name">
                 </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="additionalInfoCheck" name="additionalInfoCheck">
+                    <label for="additionalInfoCheck">Add Additional Information</label>
+                </div>
+
+                <div id="additionalInfo" style="display: none;">
+                    <div class="form-group">
+                        <label for="Crosslist_Code">Crosslist Code</label>
+                        <input type="text" class="form-control" name="Crosslist_Code" placeholder="Enter Crosslist Code">
+                    </div>
+                    <div class="form-group">
+                        <label for="Link_ID">Link ID</label>
+                        <input type="text" class="form-control" name="Link_ID" placeholder="Enter Link ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="Additional_Information">Additional Information</label>
+                        <input type="text" class="form-control" name="Additional_Information" placeholder="Enter Additional Information">
+                    </div>
+                    <div class="form-group">
+                        <label for="Zero_Textbook_Cost_Adobe_Creative_Cloud">Zero Textbook Cost / Adobe Creative Cloud</label>
+                        <input type="text" class="form-control" name="Zero_Textbook_Cost_Adobe_Creative_Cloud" placeholder="Enter Zero Textbook Cost / Adobe Creative Cloud">
+                    </div>
+                    <div class="form-group">
+                        <label for="Program_Restriction">Program Restriction</label>
+                        <input type="text" class="form-control" name="Program_Restriction" placeholder="Enter Program Restriction">
+                    </div>
+                    <div class="form-group">
+                        <label for="Reserved_Seats">Reserved Seats</label>
+                        <input type="number" class="form-control" name="Reserved_Seats" placeholder="Enter Reserved Seats">
+                    </div>
+                    <div class="form-group">
+                        <label for="Overflow_Y_N">Overflow (Y/N)</label>
+                        <select class="form-control" name="Overflow_Y_N">
+                            <option>Y</option>
+                            <option>N</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Date_Reserves_Removed">Date Reserves to be Removed (One Date Only)</label>
+                        <input type="date" class="form-control" name="Date_Reserves_Removed">
+                    </div>
+                    <div class="form-group">
+                        <label for="Fee_Detail_Code">Fee Detail Code</label>
+                        <input type="text" class="form-control" name="Fee_Detail_Code" placeholder="Enter Fee Detail Code">
+                    </div>
+                    <div class="form-group">
+                        <label for="Addtl_Mandatory_Course_Fee">Add'tl Mandatory Course Fee</label>
+                        <input type="text" class="form-control" name="Addtl_Mandatory_Course_Fee" placeholder="Enter Add'tl Mandatory Course Fee">
+                    </div>
+                    <div class="form-group">
+                        <label for="Funding_Source">Funding Source</label>
+                        <input type="text" class="form-control" name="Funding_Source" placeholder="Enter Funding Source">
+                    </div>                          
+                </div>
             </div>
-            <button type="button" class="btn btn-secondary mb-0" id="addClass">Add Another Class</button>
+            <button type="button" class="btn btn-secondary mb-0" id="addClass">Save and Add Another Class</button>
             <button type="submit" class="btn btn-primary" id="exportCSV">Export to CSV</button>
         </form>
         <div id="classesContainer"></div>
@@ -173,5 +236,5 @@
 
     <script src="/js/classes.js"></script>
     
-    </body>
-    </html>
+</body>
+</html>
