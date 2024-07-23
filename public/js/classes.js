@@ -1,7 +1,20 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const semesterId = urlParams.get('semesterId');
     document.getElementById('semesterId').value = semesterId;
+
+    // Fetch semester details using the ID
+    try {
+        const response = await fetch(`/semesters/${semesterId}`);
+        const semesterData = await response.json();
+
+        // Display the semester name
+        const semesterNameDisplay = document.getElementById('semesterNameDisplay');
+        semesterNameDisplay.textContent = semesterData.Name;
+    } catch (error) {
+        console.error("Error fetching semester details:", error);
+        alert("Error loading semester details. Please try again later.");
+    }
 
     const weekDayMap = {
         'M': 'Monday',
@@ -41,6 +54,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // Set the Course field with the Class_Number value
         classData.Course = formData.get('Class_Number');
 
+        // Add additional fields
+        classData['Crosslist_Code'] = formData.get('Crosslist_Code');
+        classData['Link_ID'] = formData.get('Link_ID');
+        classData['Additional_Information'] = formData.get('Additional_Information');
+        classData['Zero_Textbook_Cost_Adobe_Creative_Cloud'] = formData.get('Zero_Textbook_Cost_Adobe_Creative_Cloud');
+        classData['Program_Restriction'] = formData.get('Program_Restriction');
+        classData['Reserved_Seats'] = formData.get('Reserved_Seats');
+        classData['Overflow_Y_N'] = formData.get('Overflow_Y_N');
+        classData['Date_Reserves_to_be_Removed'] = formData.get('Date_Reserves_to_be_Removed');
+        classData['Fee_Detail_Code'] = formData.get('Fee_Detail_Code');
+        classData['Addtl_Mandatory_Course_Fee'] = formData.get('Addtl_Mandatory_Course_Fee');
+        classData['Funding_Source'] = formData.get('Funding_Source');
+
         if (Object.values(classData).every(x => x === "" || x === null)) {
             alert("Please fill out all fields before adding another class.");
             return;
@@ -72,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('classForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const classEntries = document.querySelectorAll('.class-entry');
-        const headers = ["CRN", "Subject", "Class_Number", "Section", "Campus", "Class_Size", "Status", "Instructional_Method", "Matrix_Code", "Banner_Codes", "Exam_Y_N", "Meeting_Type", "Session", "Non_Standard_Start_Date", "Non_Standard_End_Date", "Week_Day", "Start_Time", "End_Time", "Exam_Date_Time", "Room_Type", "Room_Preferences", "Instructor"];
+        const headers = ["CRN", "Subject", "Class_Number", "Section", "Campus", "Class_Size", "Status", "Instructional_Method", "Matrix_Code", "Banner_Codes", "Exam_Y_N", "Meeting_Type", "Session", "Non_Standard_Start_Date", "Non_Standard_End_Date", "Week_Day", "Start_Time", "End_Time", "Exam_Date_Time", "Room_Type", "Room_Preferences", "Instructor", "Crosslist_Code", "Link_ID", "Additional_Information", "Zero_Textbook_Cost_Adobe_Creative_Cloud", "Program_Restriction", "Reserved_Seats", "Overflow_Y_N", "Date_Reserves_to_be_Removed", "Fee_Detail_Code", "Addtl_Mandatory_Course_Fee", "Funding_Source"];
         const rows = [headers.join(',')];
 
         classEntries.forEach(entry => {
