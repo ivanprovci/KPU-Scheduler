@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Add the Semester_ID to the class data
         classData.Semester_ID = semesterId;
 
+        // Set the Course field with the Class_Number value
+        classData.Course = formData.get('Class_Number');
+
         if (Object.values(classData).every(x => x === "" || x === null)) {
             alert("Please fill out all fields before adding another class.");
             return;
