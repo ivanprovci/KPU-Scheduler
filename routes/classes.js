@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-// Update an existing class
+// Update an existing class. This has not been used yet.
 router.put("/:id", async (req, res) => {
     const classId = req.params.id
     const classData = req.body
