@@ -44,15 +44,6 @@ app.get("*", (req, res) => {
     res.status(404).render("404");
 });
 
-const startServer = async () => {
-    try {
-        await authenticate();
-        app.listen(port, () => {
-            console.log(`http://localhost:${port}`);
-        });
-    } catch (error) {
-        console.error("Failed to start server:", error);
-    }
-};
-
-startServer();
+app.listen(port, () => {
+    console.log(`http://localhost:${port}`);
+});
