@@ -30,13 +30,19 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "pages"));
 
 // Routes
+const authMiddleware = require('./middleware/authMiddleware'); // for auth middleware
 const classesRouter = require("./routes/classes");
 const semestersRouter = require("./routes/semesters");
 const timetableRouter = require("./routes/timetable");
 const loginRouter = require("./routes/login");
-app.use("/classes", classesRouter);
-app.use("/semesters", semestersRouter);
-app.use("/timetable", timetableRouter);
+const authRouter = require('./routes/auth');
+
+// add authmiddleware to all route. so everytime the request will go through the middleware first
+// if the user got the token, it will keep going to the class or etc.
+app.use("/api/auth", authRouter);
+app.use("/classes", authMiddleware, classesRouter);
+app.use("/semesters", authMiddleware, semestersRouter);
+app.use("/timetable", authMiddleware, timetableRouter);
 app.use("/login", loginRouter);
 
 // The 404 (error) Route (ALWAYS Keep this as the last route)
