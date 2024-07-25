@@ -34,4 +34,29 @@ const getAllSemesters = async () => {
 	}
 }
 
-module.exports = { createSemester, getAllSemesters }
+const deleteSemesterByID = async (semesterID) => {
+	try {
+		await authenticate()
+		await pb.collection("Semester").delete(semesterID)
+	} catch (error) {
+		console.error("Error in deleting semester with id: " + semesterID)
+		throw error
+	}
+}
+
+const updateSemesterByID = async (semesterId, newSemesterName) => {
+	try {
+		await authenticate()
+		await pb.collection("Semester").update(semesterId, newSemesterName)
+	} catch (error) {
+		console.error("Error in updating semester with id: " + semesterID)
+		throw error
+	}
+}
+
+module.exports = {
+	createSemester,
+	getAllSemesters,
+	deleteSemesterByID,
+	updateSemesterByID,
+}
