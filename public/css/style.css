@@ -88,6 +88,10 @@ hr {
 	background-color: var(--primary);
 }
 
+.bottom-page-margin {
+	margin-bottom: 200px;
+}
+
 /*Navigation Bar*/
 .navbar {
 	background-color: var(--primary);
@@ -146,13 +150,36 @@ section:nth-child(odd) {
 .semester-container {
 	width: 400px;
 }
-.semester-container > div * {
+#previousSemesters > button {
+	position: relative;
 	margin-top: 20px;
+	width: 100%;
+}
+
+#createNewSemester {
 	width: 100%;
 }
 
 .hidden {
 	display: none;
+}
+
+.hide {
+	opacity: 0;
+}
+
+.edit-delete-icons {
+	position: absolute;
+	right: -92px;
+	top: -1px;
+}
+
+.edit-delete-icons > button {
+	margin-left: 8px;
+}
+
+.edit-delete-icons > button > i {
+	font-size: 19px;
 }
 
 /*View classes page*/
@@ -206,8 +233,8 @@ section:nth-child(odd) {
 
 /* Style for the placeholder text in specific input elements */
 .form-group input::placeholder {
-    color: #d3d3d3; /* Light gray color */
-    opacity: 1; /* Full opacity */
+	color: #d3d3d3; /* Light gray color */
+	opacity: 1; /* Full opacity */
 }
 
 /* Add border and background color to make class entries distinct */
@@ -238,68 +265,68 @@ section:nth-child(odd) {
 
 /* Add Additional Info Check Box*/
 #additionalInfoCheck + label {
-    font-weight: bold;
+	font-weight: bold;
 }
-
 
 /* Styles for the schedule table */
 .table-container {
-    overflow-x: auto; /* Enable horizontal scrolling */
-    margin: 20px auto; /* Center the table with margin on top and bottom, auto on left and right */
-    padding: 0 20px; /* Add some padding for extra spacing on left and right */
-    max-width: 96%; /* Set a maximum width for the container */
+	overflow-x: auto; /* Enable horizontal scrolling */
+	margin: 20px auto; /* Center the table with margin on top and bottom, auto on left and right */
+	padding: 0 20px; /* Add some padding for extra spacing on left and right */
+	max-width: 96%; /* Set a maximum width for the container */
 }
 
 .schedule-table {
-    table-layout: auto; /* Automatically adjust column widths */
-    width: 100%; /* Table takes up full width of the container */
-    border-collapse: collapse;
-    font-size: 16px;
-    text-align: left;
+	table-layout: auto; /* Automatically adjust column widths */
+	width: 100%; /* Table takes up full width of the container */
+	border-collapse: collapse;
+	font-size: 16px;
+	text-align: left;
 }
 
-.schedule-table th, .schedule-table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
+.schedule-table th,
+.schedule-table td {
+	padding: 12px 15px;
+	border: 1px solid #ddd;
 }
 
 .schedule-table th {
-    background-color: #f4f4f4;
+	background-color: #f4f4f4;
 }
 
 .schedule-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+	background-color: #f9f9f9;
 }
 
 .schedule-table tr:hover {
-    background-color: #f1f1f1;
+	background-color: #f1f1f1;
 }
 
 .schedule-table td[colspan] {
-    text-align: center;
-    color: #999; /* Optional: for placeholder rows */
+	text-align: center;
+	color: #999; /* Optional: for placeholder rows */
 }
 
 /* Filters styling */
 .filter-container {
-    display: table-row; /* Ensure the container behaves like a table row */
+	display: table-row; /* Ensure the container behaves like a table row */
 }
 
 .filter-container th {
-    display: table-cell; /* Ensure cells align properly */
-    padding: 0; /* Remove default padding for filter row */
+	display: table-cell; /* Ensure cells align properly */
+	padding: 0; /* Remove default padding for filter row */
 }
 
 .filter-input {
-    width: 100%; /* Adjust width to fit the column */
-    box-sizing: border-box;
-    padding: 5px;
-    margin: 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+	width: 100%; /* Adjust width to fit the column */
+	box-sizing: border-box;
+	padding: 5px;
+	margin: 0;
+	border: 1px solid #ddd;
+	border-radius: 4px;
 }
 
 .table-title {
-    text-align: center;
-    margin-bottom: 20px;
+	text-align: center;
+	margin-bottom: 20px;
 }
