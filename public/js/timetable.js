@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const semesterSelect = document.getElementById('semesterSelect');
     const timetableBody = document.getElementById('timetableBody');
+    const exportCSVButton = document.getElementById('exportCSV');
 
     // Add default option to the dropdown
     const defaultOption = document.createElement('option');
@@ -104,4 +105,51 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error fetching classes:', error);
             });
     }
+    
+    // Function to download CSV
+    function downloadCSV(csvContent, fileName) {
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // Event listener to handle CSV export
+    exportCSVButton.addEventListener('click', function () {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        let csvRow = [];
+        const headers = document.querySelectorAll(".schedule-table thead th");
+        headers.forEach(header => {
+            csvRow.push('"' + header.textContent + '"');
+        });
+        csvContent += csvRow.join(",") + "\r\n";
+
+        // Fetch rows and each cell into CSV format
+        const rows = document.querySelectorAll(".schedule-table tbody tr");
+        rows.forEach(row => {
+            csvRow = [];
+            const cells = row.querySelectorAll("td");
+            cells.forEach((cell, index) => {
+                // Handle day columns specially
+                if (['M', 'T', 'W', 'R', 'F', 'S', 'U'].includes(headers[index].textContent) && cell.textContent === "true") {
+                    csvRow.push('"' + headers[index].textContent + '"');  // Use the day letter
+                } else if (['M', 'T', 'W', 'R', 'F', 'S', 'U'].includes(headers[index].textContent) && cell.textContent === "false") {
+                    csvRow.push('""');  // Leave blank
+                } else {
+                    csvRow.push('"' + cell.textContent.replace(/"/g, '""') + '"');  // Handle quotes by doubling them
+                }
+            });
+            csvContent += csvRow.join(",") + "\r\n";
+        });
+
+        // Use semester name for file name if available
+        const selectedSemesterName = semesterSelect.options[semesterSelect.selectedIndex].text;
+        const fileName = selectedSemesterName ? `${selectedSemesterName.replace(/ /g, '_')}.csv` : 'timetable.csv';
+
+        // Download CSV file
+        downloadCSV(csvContent, fileName);
+    });
 });
