@@ -26,7 +26,69 @@ document.addEventListener('DOMContentLoaded', async function () {
         'U': 'Sunday'
     };
 
-    document.getElementById('addClass').addEventListener('click', function () {
+    // Class Numbers for each Subject
+    const classNumbers = {
+        'Select': [],
+        'INFO': ["1100", "1110", "1111", "1112", "1113", "1115", "1130", "1140", "1211", "1212", "1213", "1214", "1230", "2311", "2312", "2313", "2315", "2342", "2411", "2413", "2416", "3033", "3109", "3110", "3135", "3150", "3171", "3180", "3225", "3235", "3240", "3245", "3250", "3280", "3390", "4105", "4110", "4115", "4120", "4125", "4190", "4235", "4260", "4290", "4310", "4330", "4370", "4381"],
+        'PHIL': ["1150", "3033", "3109"],
+        'BUQU': ["1130", "1230"],
+        'MATH': ["1115", "1140"]
+    };
+
+    const subjectDropdown = document.querySelector('select[name="Subject"]');
+    const classNumberDropdown = document.querySelector('select[name="Class_Number"]');
+    const sectionDropdown = document.querySelector('select[name="Section"]');
+    const campusDropdown = document.querySelector('select[name="Campus"]');
+
+    // Populate Class Number dropdown based on the selected subject
+    subjectDropdown.addEventListener('change', function () {
+        const selectedSubject = this.value;
+
+        // Clear the existing options
+        classNumberDropdown.innerHTML = '';
+
+        // Populate new options based on selected subject
+        if (classNumbers[selectedSubject]) {
+            classNumbers[selectedSubject].forEach(number => {
+                const option = document.createElement('option');
+                option.value = number;
+                option.textContent = number;
+                classNumberDropdown.appendChild(option);
+            });
+        }
+    });
+
+    // Initial trigger to populate the Class Number dropdown on page load
+    subjectDropdown.dispatchEvent(new Event('change'));
+
+    // Filter Campus options based on the selected Section
+    sectionDropdown.addEventListener('change', function () {
+        const selectedSection = this.value;
+        let campusOptions = [];
+
+        if (selectedSection.startsWith('A')) {
+            campusOptions = ['Online'];
+        } else if (selectedSection.startsWith('R')) {
+            campusOptions = ['Richmond'];
+        } else if (selectedSection.startsWith('S')) {
+            campusOptions = ['Surrey'];
+        } else {
+            campusOptions = ['Richmond', 'Surrey', 'Langley', 'Online'];
+        }
+
+        // Clear the existing options
+        campusDropdown.innerHTML = '';
+
+        // Populate new options based on selected section
+        campusOptions.forEach(campus => {
+            const option = document.createElement('option');
+            option.value = campus;
+            option.textContent = campus;
+            campusDropdown.appendChild(option);
+        });
+    });
+
+    document.getElementById('addClass').addEventListener('click', async function () {
         const form = document.getElementById('classForm');
         const formData = new FormData(form);
         const classData = {};
@@ -72,25 +134,28 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        fetch('/classes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(classData)
-        }).then(response => {
+        try {
+            const response = await fetch('/classes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(classData)
+            });
+
+            const responseData = await response.json();
             if (response.ok) {
                 alert("Class data saved successfully.");
                 form.reset();
                 document.getElementById('semesterId').value = semesterId;
+
+                // Re-trigger change event to populate class numbers for the default subject
+                subjectDropdown.dispatchEvent(new Event('change'));
             } else {
-                response.json().then(data => {
-                    alert(`Error saving class data: ${data.message}`);
-                    console.error("Server error response:", data);
-                });
+                throw new Error(responseData.message);
             }
-        }).catch(error => {
-            alert("Error saving class data.");
+        } catch (error) {
+            alert(`Error saving class data: ${error.message}`);
             console.error("Error in saveClassData:", error);
         });
     });
@@ -124,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.body.removeChild(link);
     });
 
-        document.getElementById('additionalInfoCheck').addEventListener('change', function () {
+    document.getElementById('additionalInfoCheck').addEventListener('change', function () {
         const additionalInfo = document.getElementById('additionalInfo');
         if (this.checked) {
             additionalInfo.style.display = 'block';

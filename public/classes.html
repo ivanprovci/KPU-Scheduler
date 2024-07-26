@@ -58,11 +58,22 @@
                 </div>
                 <div class="form-group">
                     <label for="Class_Number">Class Number</label>
-                    <input type="number" class="form-control" name="Class_Number" placeholder="Enter Class Number" oninput="this.value = this.value.slice(0, 4)">
-                </div>
+                    <select class="form-control" name="Class_Number">
+                        <option>Select Class Number</option>
+                    </select>
                 <div class="form-group">
                     <label for="Section">Section</label>
-                    <input type="text" class="form-control" name="Section" placeholder="Enter Section" oninput="this.value = this.value.slice(0, 3)">
+                    <select class="form-control" name="Section" >
+                    <option>Select Section</option>
+                    <option>A10</option> <!-- Online -->
+                    <option>R10</option> <!-- Richmond -->
+                    <option>S10</option> <!-- Surrey -->
+                    <option>S11</option>
+                    <option>S12</option>
+                    <option>S13</option>
+                    <option>S14</option>
+                    <option>S50</option>
+                </select>
                 </div>
                 <div class="form-group">
                     <label for="Campus">Campus</label>
@@ -70,11 +81,14 @@
                         <option>Richmond</option>
                         <option>Surrey</option>
                         <option>Langley</option>
+                        <option>Online</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="Class_Size">Class Size</label>
-                    <input type="number" class="form-control" name="Class_Size" placeholder="Enter Class Size" oninput="this.value = this.value.slice(0, 2)">
+                    <select class="form-control" name="Class_Size" placeholder="Select Class Size">
+                    <option>35</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="Status">Status</label>
@@ -150,15 +164,20 @@
                 </div>
                 <div class="form-group">
                     <label for="Room_Type">Room Type</label>
-                    <input type="text" class="form-control" name="Room_Type" placeholder="Enter Room Type">
+                    <select class="form-control" name="Room_Type">
+                    <option>Select Room Type</option>
+                    <option>Lab - Computer</option>
+                    <option>eClassroom</option>
+                    <option>ONLINE</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="Room_Preferences">Room Preferences</label>
-                    <input type="text" class="form-control" name="Room_Preferences" placeholder="Enter Room Preferences">
+                    <input type="text" class="form-control" name="Room_Preferences" placeholder="Enter Room Preferences (e.g. CEDAR 1050)">
                 </div>
                 <div class="form-group">
                     <label for="Instructor">Instructor</label>
-                    <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name">
+                    <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name (Last Name, First Name)">
                 </div>
 
                 <div class="form-group">
