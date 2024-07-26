@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
 
- const matrixCodeDropdown = document.querySelector('select[name="Matrix_Code"]');
+    const matrixCodeDropdown = document.querySelector('select[name="Matrix_Code"]');
     const bannerCodesInput = document.querySelector('input[name="Banner_Codes"]');
     const weekDaysInputs = document.querySelectorAll('input[name="Week_Days"]');
     const startTimeInput = document.querySelector('input[name="Start_Time"]');
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 endTimeInput.value = '21:50';
                 examDateTimeInput.value = '2023-12-08T19:00';
                 break;
-                
+
             // Add more cases here
             case '':
             break ;
@@ -248,5 +248,24 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Initial trigger to populate fields based on the default value
     matrixCodeDropdown.dispatchEvent(new Event('change'));
+
+    const selectElement = document.querySelector('select[name="Matrix_Code"]');
+    
+    // Convert options to an array
+    const optionsArray = Array.from(selectElement.options);
+    
+    // Remove the first option ("Select Matrix Code")
+    const firstOption = optionsArray.shift();
+    
+    // Sort the remaining options alphabetically
+    optionsArray.sort((a, b) => a.text.localeCompare(b.text));
+    
+    // Append the first option back to the start
+    selectElement.innerHTML = '';
+    selectElement.appendChild(firstOption);
+    
+    // Append the sorted options
+    optionsArray.forEach(option => selectElement.appendChild(option));
 });
+
 
