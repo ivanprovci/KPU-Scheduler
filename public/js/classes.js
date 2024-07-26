@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     });
 
-    document.getElementById('addClass').addEventListener('click', async function () {
+    document.getElementById('addClass').addEventListener('click', function () {
         const form = document.getElementById('classForm');
         const formData = new FormData(form);
         const classData = {};
@@ -134,16 +134,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        try {
-            const response = await fetch('/classes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(classData)
-            });
-
-            const responseData = await response.json();
+        fetch('/classes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(classData)
+        }).then(response => {
             if (response.ok) {
                 alert("Class data saved successfully.");
                 form.reset();
@@ -152,10 +149,13 @@ document.addEventListener('DOMContentLoaded', async function () {
                 // Re-trigger change event to populate class numbers for the default subject
                 subjectDropdown.dispatchEvent(new Event('change'));
             } else {
-                throw new Error(responseData.message);
+                response.json().then(data => {
+                    alert(`Error saving class data: ${data.message}`);
+                    console.error("Server error response:", data);
+                });
             }
-        } catch (error) {
-            alert(`Error saving class data: ${error.message}`);
+        }).catch(error => {
+            alert("Error saving class data.");
             console.error("Error in saveClassData:", error);
         });
     });
