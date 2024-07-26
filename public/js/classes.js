@@ -197,4 +197,56 @@ document.addEventListener('DOMContentLoaded', async function () {
             additionalInfo.style.display = 'none';
         }
     });
+
+ const matrixCodeDropdown = document.querySelector('select[name="Matrix_Code"]');
+    const bannerCodesInput = document.querySelector('input[name="Banner_Codes"]');
+    const weekDaysInputs = document.querySelectorAll('input[name="Week_Days"]');
+    const startTimeInput = document.querySelector('input[name="Start_Time"]');
+    const endTimeInput = document.querySelector('input[name="End_Time"]');
+    const examDateTimeInput = document.querySelector('input[name="Exam_Date_Time"]');
+
+    // Update the form fields based on the selected Matrix Code
+    matrixCodeDropdown.addEventListener('change', function () {
+        const selectedMatrixCode = this.value;
+
+        switch (selectedMatrixCode) {
+            case 'WDE':
+                bannerCodesInput.value = 'W2';
+                weekDaysInputs.forEach(input => {
+                    input.checked = input.value === 'W';
+                });
+                startTimeInput.value = '13:00';
+                endTimeInput.value = '15:50';
+                examDateTimeInput.value = '2023-12-06T12:00';
+                break;
+            case 'FH':
+                bannerCodesInput.value = 'F4';
+                weekDaysInputs.forEach(input => {
+                    input.checked = input.value === 'F';
+                });
+                startTimeInput.value = '19:00';
+                endTimeInput.value = '21:50';
+                examDateTimeInput.value = '2023-12-08T19:00';
+                break;
+                
+            // Add more cases here
+            case '':
+            break ;
+
+            default:
+                // Clear values if no matching case
+                bannerCodesInput.value = '';
+                weekDaysInputs.forEach(input => {
+                    input.checked = false;
+                });
+                startTimeInput.value = '';
+                endTimeInput.value = '';
+                examDateTimeInput.value = '';
+                break;
+        }
+    });
+
+    // Initial trigger to populate fields based on the default value
+    matrixCodeDropdown.dispatchEvent(new Event('change'));
 });
+
