@@ -134,6 +134,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         classData['Addtl_Mandatory_Course_Fee'] = formData.get('Addtl_Mandatory_Course_Fee');
         classData['Funding_Source'] = formData.get('Funding_Source');
 
+        if (Object.values(classData).every(x => x === "" || x === null)) {
+            alert("Please fill out all fields before adding another class.");
+            return;
+        }
         // Check for duplicate course number and section, and CRN conflicts
         fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}`)
             .then(response => response.json())
