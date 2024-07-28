@@ -1,18 +1,28 @@
 const { pb, authenticate } = require("./pocketbase-connection.js")
 
-
 const createClass = async (classData) => {
     try {
         await authenticate();
 
         // Check if a class with the same CRN already exists
-        const existingClasses = await pb.collection("Courses").getFullList({
+        const existingCrnClasses = await pb.collection("Courses").getFullList({
             filter: `CRN = "${classData.CRN}"`
         });
 
-        if (existingClasses.length > 0) {
-            const error = new Error("A class with this CRN already exists.");
-            error.field = "CRN"; // Ensure this field is set
+        if (existingCrnClasses.length > 0) {
+            const error = new Error("A class with this CRN already exists. Please use another CRN number.");
+            error.field = "CRN";
+            throw error;
+        }
+
+        // Check if a class with the same Course and Section already exists
+        const existingCourseClasses = await pb.collection("Courses").getFullList({
+            filter: `Course = "${classData.Course}" && Section = "${classData.Section}"`
+        });
+
+        if (existingCourseClasses.length > 0) {
+            const error = new Error("A class with this course number and section already exists. Each class must have a unique section number.");
+            error.field = "Section";
             throw error;
         }
 
@@ -20,7 +30,7 @@ const createClass = async (classData) => {
         return record;
     } catch (error) {
         console.error("Error in createClass:", error.message);
-        error.field = error.field || null; // Ensure field is part of error
+        error.field = error.field || null;
         throw error;
     }
 };
