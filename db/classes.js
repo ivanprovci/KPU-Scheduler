@@ -1,18 +1,29 @@
 const { pb, authenticate } = require("./pocketbase-connection.js")
 
-// Create a new class in the Courses collection
+
 const createClass = async (classData) => {
     try {
-        await authenticate()
-        console.log("Attempting to create class with data:", classData)
-        const record = await pb.collection("Courses").create(classData)
-        console.log("Class created:", record)
-        return record
+        await authenticate();
+
+        // Check if a class with the same CRN already exists
+        const existingClasses = await pb.collection("Courses").getFullList({
+            filter: `CRN = "${classData.CRN}"`
+        });
+
+        if (existingClasses.length > 0) {
+            const error = new Error("A class with this CRN already exists.");
+            error.field = "CRN"; // Ensure this field is set
+            throw error;
+        }
+
+        const record = await pb.collection("Courses").create(classData);
+        return record;
     } catch (error) {
-        console.error("Error in createClass:", error.message)
-        throw error
+        console.error("Error in createClass:", error.message);
+        error.field = error.field || null; // Ensure field is part of error
+        throw error;
     }
-}
+};
 
 // Retrieve all classes for a given semester
 const getClassesBySemester = async (semesterId) => {

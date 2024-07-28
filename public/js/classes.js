@@ -93,6 +93,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         const formData = new FormData(form);
         const classData = {};
 
+        // Clear previous error highlights and messages
+        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        const errorMessages = form.querySelectorAll('.error-message');
+        errorMessages.forEach(el => el.remove());
+
         formData.forEach((value, key) => {
             if (key === 'Exam_Date_Time') {
                 classData[key] = new Date(value).toISOString();
@@ -150,6 +155,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                 subjectDropdown.dispatchEvent(new Event('change'));
             } else {
                 response.json().then(data => {
+                    if (data.field) {
+                        const fieldElement = form.querySelector(`[name="${data.field}"]`);
+                        if (fieldElement) {
+                            fieldElement.classList.add('is-invalid');
+                            const errorMessage = document.createElement('small');
+                            errorMessage.className = 'error-message text-danger';
+                            errorMessage.textContent = "Please use another CRN number";
+                            fieldElement.parentNode.appendChild(errorMessage);
+                        }
+                    }
                     alert(`Error saving class data: ${data.message}`);
                     console.error("Server error response:", data);
                 });
@@ -231,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             // Add more cases here
             case '':
-            break ;
+                break;
 
             default:
                 // Clear values if no matching case
@@ -250,22 +265,20 @@ document.addEventListener('DOMContentLoaded', async function () {
     matrixCodeDropdown.dispatchEvent(new Event('change'));
 
     const selectElement = document.querySelector('select[name="Matrix_Code"]');
-    
+
     // Convert options to an array
     const optionsArray = Array.from(selectElement.options);
-    
+
     // Remove the first option ("Select Matrix Code")
     const firstOption = optionsArray.shift();
-    
+
     // Sort the remaining options alphabetically
     optionsArray.sort((a, b) => a.text.localeCompare(b.text));
-    
+
     // Append the first option back to the start
     selectElement.innerHTML = '';
     selectElement.appendChild(firstOption);
-    
+
     // Append the sorted options
     optionsArray.forEach(option => selectElement.appendChild(option));
 });
-
-
