@@ -1,11 +1,10 @@
 //This file is used for contacting the database
 
-const { pb, authenticate } = require("./pocketbase-connection.js")
+const { pb } = require("./pocketbase-connection.js")
 
 // create a new semester in the semester table
 const createSemester = async (name) => {
 	try {
-		await authenticate()
 		// Create a new record in the 'Semester' collection with the given name
 		const record = await pb.collection("Semester").create({ Name: name })
 		console.log("Semester created:", record)
@@ -19,7 +18,6 @@ const createSemester = async (name) => {
 // retrieve all the current semesters from the semester table as an array
 const getAllSemesters = async () => {
 	try {
-		await authenticate()
 		console.log("Fetching all semesters")
 
 		// Get all records from the 'Semester' collection
@@ -36,7 +34,6 @@ const getAllSemesters = async () => {
 
 const deleteSemesterByID = async (semesterID) => {
 	try {
-		await authenticate()
 		await pb.collection("Semester").delete(semesterID)
 	} catch (error) {
 		console.error("Error in deleting semester with id: " + semesterID)
@@ -46,7 +43,6 @@ const deleteSemesterByID = async (semesterID) => {
 
 const updateSemesterByID = async (semesterId, newSemesterName) => {
 	try {
-		await authenticate()
 		await pb.collection("Semester").update(semesterId, newSemesterName)
 	} catch (error) {
 		console.error("Error in updating semester with id: " + semesterID)
