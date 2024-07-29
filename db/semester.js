@@ -50,9 +50,18 @@ const updateSemesterByID = async (semesterId, newSemesterName) => {
 	}
 }
 
+const getSemesterFromId = async (semesterID) => {
+    try {
+        return await pb.collection('Semester').getOne(semesterID)
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
 	createSemester,
 	getAllSemesters,
 	deleteSemesterByID,
 	updateSemesterByID,
+    getSemesterFromId
 }

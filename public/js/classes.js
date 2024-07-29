@@ -1,19 +1,16 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const semesterId = urlParams.get('semesterId');
-    document.getElementById('semesterId').value = semesterId;
-
     // Fetch semester details using the ID
     try {
-        const response = await fetch(`/semesters/${semesterId}`);
+        const response = await fetch(`http://localhost:3000/semesters/getName?semesterId=${semesterId}`)
         const semesterData = await response.json();
 
         // Display the semester name
         const semesterNameDisplay = document.getElementById('semesterNameDisplay');
-        semesterNameDisplay.textContent = semesterData.Name;
+        semesterNameDisplay.textContent = semesterData;
     } catch (error) {
-        console.error("Error fetching semester details:", error);
-        alert("Error loading semester details. Please try again later.");
+        console.error("Error fetching semester name")
     }
 
     const weekDayMap = {

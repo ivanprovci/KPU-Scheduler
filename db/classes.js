@@ -2,8 +2,6 @@ const { pb } = require("./pocketbase-connection.js")
 
 const createClass = async (classData) => {
 	try {
-		await authenticate()
-
 		// Check if a class with the same CRN already exists
 		const existingCrnClasses = await pb.collection("Courses").getFullList({
 			filter: `CRN = "${classData.CRN}"`,
