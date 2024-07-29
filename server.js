@@ -37,6 +37,7 @@ const classesRouter = require("./routes/classes")
 const semestersRouter = require("./routes/semesters")
 const timetableRouter = require("./routes/timetable")
 const loginRouter = require("./routes/login")
+const logoutRouter = require("./routes/logout")
 
 // add authenticateToken middleware to all routes, except login. so everytime the request will go through the middleware first
 // if the user has a valid token, it will allow them to continue to the other pages and interact w the database (semesters, classes, etc)
@@ -44,6 +45,7 @@ app.use("/classes", authenticateToken, classesRouter)
 app.use("/semesters", authenticateToken, semestersRouter)
 app.use("/timetable", authenticateToken, timetableRouter)
 app.use("/login", loginRouter)
+app.use("/logout", logoutRouter)
 
 // The 404 (error) Route (ALWAYS Keep this as the last route)
 app.get("*", (req, res) => {
