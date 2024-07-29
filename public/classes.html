@@ -58,11 +58,22 @@
                 </div>
                 <div class="form-group">
                     <label for="Class_Number">Class Number</label>
-                    <input type="number" class="form-control" name="Class_Number" placeholder="Enter Class Number" oninput="this.value = this.value.slice(0, 4)">
-                </div>
+                    <select class="form-control" name="Class_Number">
+                        <option>Select Class Number</option>
+                    </select>
                 <div class="form-group">
                     <label for="Section">Section</label>
-                    <input type="text" class="form-control" name="Section" placeholder="Enter Section" oninput="this.value = this.value.slice(0, 3)">
+                    <select class="form-control" name="Section" >
+                    <option>Select Section</option>
+                    <option>A10</option> <!-- Online -->
+                    <option>R10</option> <!-- Richmond -->
+                    <option>S10</option> <!-- Surrey -->
+                    <option>S11</option>
+                    <option>S12</option>
+                    <option>S13</option>
+                    <option>S14</option>
+                    <option>S50</option>
+                </select>
                 </div>
                 <div class="form-group">
                     <label for="Campus">Campus</label>
@@ -70,11 +81,14 @@
                         <option>Richmond</option>
                         <option>Surrey</option>
                         <option>Langley</option>
+                        <option>Online</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="Class_Size">Class Size</label>
-                    <input type="number" class="form-control" name="Class_Size" placeholder="Enter Class Size" oninput="this.value = this.value.slice(0, 2)">
+                    <select class="form-control" name="Class_Size" placeholder="Select Class Size">
+                    <option>35</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="Status">Status</label>
@@ -90,10 +104,177 @@
                         <option>Blended Synchronous</option>
                     </select>
                 </div>
+                <!--
                 <div class="form-group">
                     <label for="Matrix_Code">Matrix Code</label>
                     <input type="text" class="form-control" name="Matrix_Code" placeholder="Enter Matrix Code" oninput="this.value = this.value.slice(0, 3)">
                 </div>
+                -->
+                <div class="form-group">
+                    <label for="Matrix_Code">Matrix Code</label>
+                    <select class="form-control" name="Matrix_Code">
+                        <option>Select Matrix Code</option>
+                        <option>OFF</option>
+                        <option>ASYNC</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>14</option>
+                        <option>22</option>
+                        <option>24</option>
+                        <option>MP4</option>
+                        <option>MQ4</option>
+                        <option>MQ6</option>
+                        <option>MR4</option>
+                        <option>MS4</option>
+                        <option>MT4</option>
+                        <option>MU4</option>
+                        <option>TP4</option>
+                        <option>TQ4</option>
+                        <option>TQ6</option>
+                        <option>TR4</option>
+                        <option>TS4</option>
+                        <option>TT4</option>
+                        <option>TU4</option>
+                        <option>WP4</option>
+                        <option>WQ4</option>
+                        <option>WQ6</option>
+                        <option>WR4</option>
+                        <option>WS4</option>
+                        <option>WT4</option>
+                        <option>WU4</option>
+                        <option>RP4</option>
+                        <option>RQ4</option>
+                        <option>RQ6</option>
+                        <option>RR4</option>
+                        <option>RS4</option>
+                        <option>RT4</option>
+                        <option>RU4</option>
+                        <option>FP4</option>
+                        <option>FPQ</option>
+                        <option>FQ4</option>
+                        <option>FQ6</option>
+                        <option>FR4</option>
+                        <option>FRS</option>
+                        <option>FS4</option>
+                        <option>FT4</option>
+                        <option>FU4</option>
+                        <option>SP4</option>
+                        <option>SQ4</option>
+                        <option>SQ6</option>
+                        <option>SR4</option>
+                        <option>SS4</option>
+                        <option>ST4</option>
+                        <option>MWP</option>
+                        <option>MWS</option>
+                        <option>TRP</option>
+                        <option>TRR</option>
+                        <option>TRS</option>
+                        <option>MBC</option>
+                        <option>MDE</option>
+                        <option>MD6</option>
+                        <option>MFG</option>
+                        <option>MH</option>
+                        <option>TBC</option>
+                        <option>TDE</option>
+                        <option>TD6</option>
+                        <option>TFG</option>
+                        <option>TH</option>
+                        <option>WBC</option>
+                        <option>WDE</option>
+                        <option>WD6</option>
+                        <option>WFG</option>
+                        <option>WH</option>
+                        <option>RDE</option>
+                        <option>RH</option>
+                        <option>RBC</option>
+                        <option>RD6</option>
+                        <option>RFG</option>
+                        <option>FBC</option>
+                        <option>FDE</option>
+                        <option>FD6</option>
+                        <option>FFG</option>
+                        <option>FH</option>
+                        <option>SBC</option>
+                        <option>SDE</option>
+                        <option>SD6</option>
+                        <option>MWA</option>
+                        <option>MWB</option>
+                        <option>MWC</option>
+                        <option>MWD</option>
+                        <option>MWE</option>
+                        <option>MWF</option>
+                        <option>MWG</option>
+                        <option>TRA</option>
+                        <option>TRB</option>
+                        <option>TRC</option>
+                        <option>TRD</option>
+                        <option>TRE</option>
+                        <option>TRF</option>
+                        <option>TRG</option>
+                        <option>S1P</option>
+                        <option>S1MWBC</option>
+                        <option>S1MWDE</option>
+                        <option>S1MWFG</option>
+                        <option>S1MWH</option>
+                        <option>S1TRBC</option>
+                        <option>S1TRDE</option>
+                        <option>S1TRFG</option>
+                        <option>S1F1</option>
+                        <option>S1F2</option>
+                        <option>S1F6</option>
+                        <option>S1S6</option>
+                        <option>S1S8</option>
+                        <option>S1A</option>
+                        <option>S1B</option>
+                        <option>S11</option>
+                        <option>S1C</option>
+                        <option>S12</option>
+                        <option>S1D</option>
+                        <option>S13</option>
+                        <option>S1E</option>
+                        <option>S1F</option>
+                        <option>S14</option>
+                        <option>S1G</option>
+                        <option>S15</option>
+                        <option>S2P</option>
+                        <option>S2MWBC</option>
+                        <option>S2MWDE</option>
+                        <option>S2MWFG</option>
+                        <option>S2MWH</option>
+                        <option>S2TRBC</option>
+                        <option>S2TRDE</option>
+                        <option>S2TRFG</option>
+                        <option>S2TRH</option>
+                        <option>S2F1</option>
+                        <option>S2F6</option>
+                        <option>S2F2</option>
+                        <option>S2S6</option>
+                        <option>S2S8</option>
+                        <option>S2A</option>
+                        <option>S2B</option>
+                        <option>S21</option>
+                        <option>S2C</option>
+                        <option>S22</option>
+                        <option>S2D</option>
+                        <option>S23</option>
+                        <option>S2E</option>
+                        <option>S2F</option>
+                        <option>S24</option>
+                        <option>S2G</option>
+                        <option>S25</option>
+                        <!--Add more options here-->
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="Banner_Codes">Banner Codes</label>
                     <input type="text" class="form-control" name="Banner_Codes" placeholder="Enter Banner Codes" oninput="this.value = this.value.slice(0, 2)">
@@ -150,15 +331,20 @@
                 </div>
                 <div class="form-group">
                     <label for="Room_Type">Room Type</label>
-                    <input type="text" class="form-control" name="Room_Type" placeholder="Enter Room Type">
+                    <select class="form-control" name="Room_Type">
+                    <option>Select Room Type</option>
+                    <option>Lab - Computer</option>
+                    <option>eClassroom</option>
+                    <option>ONLINE</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="Room_Preferences">Room Preferences</label>
-                    <input type="text" class="form-control" name="Room_Preferences" placeholder="Enter Room Preferences">
+                    <input type="text" class="form-control" name="Room_Preferences" placeholder="Enter Room Preferences (e.g. CEDAR 1050)">
                 </div>
                 <div class="form-group">
                     <label for="Instructor">Instructor</label>
-                    <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name">
+                    <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name (Last Name, First Name)">
                 </div>
 
                 <div class="form-group">
@@ -217,7 +403,6 @@
                 </div>
             </div>
             <button type="button" class="btn btn-secondary mb-0" id="addClass">Save and Add Another Class</button>
-            <button type="submit" class="btn btn-primary" id="exportCSV">Export to CSV</button>
         </form>
         <div id="classesContainer"></div>
     </div>

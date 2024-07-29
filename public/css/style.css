@@ -330,3 +330,14 @@ section:nth-child(odd) {
 	text-align: center;
 	margin-bottom: 20px;
 }
+
+.is-invalid {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+}
+
+.error-message {
+    color: #dc3545;
+    margin-top: 0.25rem;
+    font-size: 80%;
+}

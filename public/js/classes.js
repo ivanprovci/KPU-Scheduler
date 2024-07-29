@@ -26,10 +26,77 @@ document.addEventListener('DOMContentLoaded', async function () {
         'U': 'Sunday'
     };
 
+    // Class Numbers for each Subject
+    const classNumbers = {
+        'Select': [],
+        'INFO': ["1100", "1110", "1111", "1112", "1113", "1115", "1130", "1140", "1211", "1212", "1213", "1214", "1230", "2311", "2312", "2313", "2315", "2342", "2411", "2413", "2416", "3033", "3109", "3110", "3135", "3150", "3171", "3180", "3225", "3235", "3240", "3245", "3250", "3280", "3390", "4105", "4110", "4115", "4120", "4125", "4190", "4235", "4260", "4290", "4310", "4330", "4370", "4381"],
+        'PHIL': ["1150", "3033", "3109"],
+        'BUQU': ["1130", "1230"],
+        'MATH': ["1115", "1140"]
+    };
+
+    const subjectDropdown = document.querySelector('select[name="Subject"]');
+    const classNumberDropdown = document.querySelector('select[name="Class_Number"]');
+    const sectionDropdown = document.querySelector('select[name="Section"]');
+    const campusDropdown = document.querySelector('select[name="Campus"]');
+
+    // Populate Class Number dropdown based on the selected subject
+    subjectDropdown.addEventListener('change', function () {
+        const selectedSubject = this.value;
+
+        // Clear the existing options
+        classNumberDropdown.innerHTML = '';
+
+        // Populate new options based on selected subject
+        if (classNumbers[selectedSubject]) {
+            classNumbers[selectedSubject].forEach(number => {
+                const option = document.createElement('option');
+                option.value = number;
+                option.textContent = number;
+                classNumberDropdown.appendChild(option);
+            });
+        }
+    });
+
+    // Initial trigger to populate the Class Number dropdown on page load
+    subjectDropdown.dispatchEvent(new Event('change'));
+
+    // Filter Campus options based on the selected Section
+    sectionDropdown.addEventListener('change', function () {
+        const selectedSection = this.value;
+        let campusOptions = [];
+
+        if (selectedSection.startsWith('A')) {
+            campusOptions = ['Online'];
+        } else if (selectedSection.startsWith('R')) {
+            campusOptions = ['Richmond'];
+        } else if (selectedSection.startsWith('S')) {
+            campusOptions = ['Surrey'];
+        } else {
+            campusOptions = ['Richmond', 'Surrey', 'Langley', 'Online'];
+        }
+
+        // Clear the existing options
+        campusDropdown.innerHTML = '';
+
+        // Populate new options based on selected section
+        campusOptions.forEach(campus => {
+            const option = document.createElement('option');
+            option.value = campus;
+            option.textContent = campus;
+            campusDropdown.appendChild(option);
+        });
+    });
+
     document.getElementById('addClass').addEventListener('click', function () {
         const form = document.getElementById('classForm');
         const formData = new FormData(form);
         const classData = {};
+
+        // Clear previous error highlights and messages
+        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        const errorMessages = form.querySelectorAll('.error-message');
+        errorMessages.forEach(el => el.remove());
 
         formData.forEach((value, key) => {
             if (key === 'Exam_Date_Time') {
@@ -71,28 +138,61 @@ document.addEventListener('DOMContentLoaded', async function () {
             alert("Please fill out all fields before adding another class.");
             return;
         }
+        // Check for duplicate course number and section, and CRN conflicts
+        fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    const fieldElement = form.querySelector(`[name="${data.field}"]`);
+                    if (fieldElement) {
+                        fieldElement.classList.add('is-invalid');
+                        const errorMessage = document.createElement('small');
+                        errorMessage.className = 'error-message text-danger';
+                        errorMessage.textContent = data.field === 'Section' ? "Please enter a different section number" : "Enter a valid CRN number";
+                        fieldElement.parentNode.appendChild(errorMessage);
+                    }
+                    return;
+                } else {
+                    // Proceed with class creation
+                    fetch('/classes', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(classData)
+                    }).then(response => {
+                        if (response.ok) {
+                            alert("Class data saved successfully.");
+                            form.reset();
+                            document.getElementById('semesterId').value = semesterId;
 
-        fetch('/classes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(classData)
-        }).then(response => {
-            if (response.ok) {
-                alert("Class data saved successfully.");
-                form.reset();
-                document.getElementById('semesterId').value = semesterId;
-            } else {
-                response.json().then(data => {
-                    alert(`Error saving class data: ${data.message}`);
-                    console.error("Server error response:", data);
-                });
-            }
-        }).catch(error => {
-            alert("Error saving class data.");
-            console.error("Error in saveClassData:", error);
-        });
+                            // Re-trigger change event to populate class numbers for the default subject
+                            subjectDropdown.dispatchEvent(new Event('change'));
+                        } else {
+                            response.json().then(data => {
+                                if (data.field) {
+                                    const fieldElement = form.querySelector(`[name="${data.field}"]`);
+                                    if (fieldElement) {
+                                        fieldElement.classList.add('is-invalid');
+                                        const errorMessage = document.createElement('small');
+                                        errorMessage.className = 'error-message text-danger';
+                                        errorMessage.textContent = data.field === 'Section' ? "Please enter a different section number" : "Enter a valid CRN number";
+                                        fieldElement.parentNode.appendChild(errorMessage);
+                                    }
+                                }
+                                alert(`Error saving class data: ${data.message}`);
+                                console.error("Server error response:", data);
+                            });
+                        }
+                    }).catch(error => {
+                        alert("Error saving class data.");
+                        console.error("Error in saveClassData:", error);
+                    });
+                }
+            }).catch(error => {
+                alert("Error checking for duplicates.");
+                console.error("Error in check-duplicate:", error);
+            });
     });
 
     document.getElementById('classForm').addEventListener('submit', function (event) {
@@ -124,7 +224,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.body.removeChild(link);
     });
 
-        document.getElementById('additionalInfoCheck').addEventListener('change', function () {
+    document.getElementById('additionalInfoCheck').addEventListener('change', function () {
         const additionalInfo = document.getElementById('additionalInfo');
         if (this.checked) {
             additionalInfo.style.display = 'block';
@@ -132,4 +232,73 @@ document.addEventListener('DOMContentLoaded', async function () {
             additionalInfo.style.display = 'none';
         }
     });
+
+    const matrixCodeDropdown = document.querySelector('select[name="Matrix_Code"]');
+    const bannerCodesInput = document.querySelector('input[name="Banner_Codes"]');
+    const weekDaysInputs = document.querySelectorAll('input[name="Week_Days"]');
+    const startTimeInput = document.querySelector('input[name="Start_Time"]');
+    const endTimeInput = document.querySelector('input[name="End_Time"]');
+    const examDateTimeInput = document.querySelector('input[name="Exam_Date_Time"]');
+
+    // Update the form fields based on the selected Matrix Code
+    matrixCodeDropdown.addEventListener('change', function () {
+        const selectedMatrixCode = this.value;
+
+        switch (selectedMatrixCode) {
+            case 'WDE':
+                bannerCodesInput.value = 'W2';
+                weekDaysInputs.forEach(input => {
+                    input.checked = input.value === 'W';
+                });
+                startTimeInput.value = '13:00';
+                endTimeInput.value = '15:50';
+                examDateTimeInput.value = '2023-12-06T12:00';
+                break;
+            case 'FH':
+                bannerCodesInput.value = 'F4';
+                weekDaysInputs.forEach(input => {
+                    input.checked = input.value === 'F';
+                });
+                startTimeInput.value = '19:00';
+                endTimeInput.value = '21:50';
+                examDateTimeInput.value = '2023-12-08T19:00';
+                break;
+
+            // Add more cases here
+            case '':
+                break;
+
+            default:
+                // Clear values if no matching case
+                bannerCodesInput.value = '';
+                weekDaysInputs.forEach(input => {
+                    input.checked = false;
+                });
+                startTimeInput.value = '';
+                endTimeInput.value = '';
+                examDateTimeInput.value = '';
+                break;
+        }
+    });
+
+    // Initial trigger to populate fields based on the default value
+    matrixCodeDropdown.dispatchEvent(new Event('change'));
+
+    const selectElement = document.querySelector('select[name="Matrix_Code"]');
+
+    // Convert options to an array
+    const optionsArray = Array.from(selectElement.options);
+
+    // Remove the first option ("Select Matrix Code")
+    const firstOption = optionsArray.shift();
+
+    // Sort the remaining options alphabetically
+    optionsArray.sort((a, b) => a.text.localeCompare(b.text));
+
+    // Append the first option back to the start
+    selectElement.innerHTML = '';
+    selectElement.appendChild(firstOption);
+
+    // Append the sorted options
+    optionsArray.forEach(option => selectElement.appendChild(option));
 });
