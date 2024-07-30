@@ -1,16 +1,18 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const semesterId = urlParams.get('semesterId');
+    document.getElementById('semesterId').value = semesterId;
+
     // Fetch semester details using the ID
     try {
-        const response = await fetch(`http://localhost:3000/semesters/getName?semesterId=${semesterId}`)
+        const response = await fetch(`http://localhost:3000/semesters/getName?semesterId=${semesterId}`);
         const semesterData = await response.json();
 
         // Display the semester name
         const semesterNameDisplay = document.getElementById('semesterNameDisplay');
         semesterNameDisplay.textContent = semesterData;
     } catch (error) {
-        console.error("Error fetching semester name")
+        console.error("Error fetching semester name");
     }
 
     const weekDayMap = {
@@ -112,8 +114,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
 
-        // Add the Semester_ID to the class data
-        classData.Semester_ID = semesterId;
+        // Add the Semester ID to the class data
+        classData.semesterId = semesterId;
 
         // Set the Course field with the Class_Number value
         classData.Course = formData.get('Class_Number');
@@ -135,8 +137,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             alert("Please fill out all fields before adding another class.");
             return;
         }
+
         // Check for duplicate course number and section, and CRN conflicts
-        fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}`)
+        fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}&semesterId=${classData.semesterId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.exists) {
