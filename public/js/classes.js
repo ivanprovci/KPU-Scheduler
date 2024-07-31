@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Fetch semester details using the ID
     try {
-        const response = await fetch(`http://localhost:3000/semesters/getName?semesterId=${semesterId}`)
+        const response = await fetch(`http://localhost:3000/semesters/getName?semesterId=${semesterId}`);
         const semesterData = await response.json();
 
         // Display the semester name
@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     document.getElementById('addClass').addEventListener('click', function () {
+        console.log("Add Another Class button clicked");
+
         const form = document.getElementById('classForm');
         const formData = new FormData(form);
         const classData = {};
@@ -98,9 +100,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         errorMessages.forEach(el => el.remove());
 
         formData.forEach((value, key) => {
-            if (key === 'Exam_Date_Time') {
-                classData[key] = new Date(value).toISOString();
-            } else if (key === 'Week_Days') {
+            if (key === 'Week_Days') {
                 classData[value] = true; // This will set the boolean for the corresponding day to true
             } else {
                 classData[key] = value;
@@ -133,79 +133,81 @@ document.addEventListener('DOMContentLoaded', async function () {
         classData['Addtl_Mandatory_Course_Fee'] = formData.get('Addtl_Mandatory_Course_Fee');
         classData['Funding_Source'] = formData.get('Funding_Source');
 
+        console.log("Class Data:", classData);
+
         if (Object.values(classData).every(x => x === "" || x === null)) {
             alert("Please fill out all fields before adding another class.");
             return;
         }
 
-// Check for duplicate course number and section, and CRN conflicts
-fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}&semesterId=${classData.Semester_ID}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data.exists) {
-            const fieldElement = form.querySelector(`[name="${data.field}"]`);
-            if (fieldElement) {
-                fieldElement.classList.add('is-invalid');
-                const errorMessage = document.createElement('small');
-                errorMessage.className = 'error-message text-danger';
-                errorMessage.textContent = data.field === 'Section' ? "Please enter a different section number" : "Enter a valid CRN number";
-                fieldElement.parentNode.appendChild(errorMessage);
-            }
-            return;
-        } else {
-            // Proceed with class creation
-            fetch('/classes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(classData)
-            }).then(response => {
-                if (response.ok) {
-                    alert("Class data saved successfully.");
-                    form.reset();
-                    document.getElementById('semesterId').value = semesterId;
-
-                    // Re-trigger change event to populate class numbers for the default subject
-                    subjectDropdown.dispatchEvent(new Event('change'));
+        // Check for duplicate course number and section, and CRN conflicts
+        fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}&semesterId=${classData.Semester_ID}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    const fieldElement = form.querySelector(`[name="${data.field}"]`);
+                    if (fieldElement) {
+                        fieldElement.classList.add('is-invalid');
+                        const errorMessage = document.createElement('small');
+                        errorMessage.className = 'error-message text-danger';
+                        errorMessage.textContent = data.field === 'Section' ? "Please enter a different section number" : "Enter a valid CRN number";
+                        fieldElement.parentNode.appendChild(errorMessage);
+                    }
+                    return;
                 } else {
-                    response.json().then(data => {
-                        if (data.field) {
-                            const fieldElement = form.querySelector(`[name="${data.field}"]`);
-                            if (fieldElement) {
-                                fieldElement.classList.add('is-invalid');
-                                const errorMessage = document.createElement('small');
-                                errorMessage.className = 'error-message text-danger';
-                                if (data.field === 'Section') {
-                                    errorMessage.textContent = "Please enter a different section number";
-                                } else if (data.field === 'CRN') {
-                                    errorMessage.textContent = "Enter a valid CRN number";
-                                } else if (data.field === 'Room_Preferences') {
-                                    errorMessage.textContent = "There is a classroom time conflict with another class";
-                                } else if (data.field === 'Instructor'){
-                                     errorMessage.textContent = "There is a time conflict for this instructor";
-                                } 
-                                
-                                else {
-                                    errorMessage.textContent = "Invalid input";
+                    // Proceed with class creation
+                    fetch('/classes', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(classData)
+                    }).then(response => {
+                        if (response.ok) {
+                            alert("Class data saved successfully.");
+                            form.reset();
+                            document.getElementById('semesterId').value = semesterId;
+
+                            // Re-trigger change event to populate class numbers for the default subject
+                            subjectDropdown.dispatchEvent(new Event('change'));
+                        } else {
+                            response.json().then(data => {
+                                if (data.field) {
+                                    const fieldElement = form.querySelector(`[name="${data.field}"]`);
+                                    if (fieldElement) {
+                                        fieldElement.classList.add('is-invalid');
+                                        const errorMessage = document.createElement('small');
+                                        errorMessage.className = 'error-message text-danger';
+                                        if (data.field === 'Section') {
+                                            errorMessage.textContent = "Please enter a different section number";
+                                        } else if (data.field === 'CRN') {
+                                            errorMessage.textContent = "Enter a valid CRN number";
+                                        } else if (data.field === 'Room_Preferences') {
+                                            errorMessage.textContent = "There is a classroom time conflict with another class";
+                                        } else if (data.field === 'Instructor'){
+                                             errorMessage.textContent = "There is a time conflict for this instructor";
+                                        } 
+                                        
+                                        else {
+                                            errorMessage.textContent = "Invalid input";
+                                        }
+                                        fieldElement.parentNode.appendChild(errorMessage);
+                                    }
                                 }
-                                fieldElement.parentNode.appendChild(errorMessage);
-                            }
+                                alert(`Error saving class data: ${data.message}`);
+                                console.error("Server error response:", data);
+                            });
                         }
-                        alert(`Error saving class data: ${data.message}`);
-                        console.error("Server error response:", data);
+                    }).catch(error => {
+                        alert("Error saving class data.");
+                        console.error("Error in saveClassData:", error);
                     });
                 }
             }).catch(error => {
-                alert("Error saving class data.");
-                console.error("Error in saveClassData:", error);
+                alert("Error checking for duplicates.");
+                console.error("Error in check-duplicate:", error);
             });
-        }
-    }).catch(error => {
-        alert("Error checking for duplicates.");
-        console.error("Error in check-duplicate:", error);
     });
-});
 
     document.getElementById('additionalInfoCheck').addEventListener('change', function () {
         const additionalInfo = document.getElementById('additionalInfo');
@@ -221,8 +223,7 @@ fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&
     const weekDaysInputs = document.querySelectorAll('input[name="Week_Days"]');
     const startTimeInput = document.querySelector('input[name="Start_Time"]');
     const endTimeInput = document.querySelector('input[name="End_Time"]');
-    const examDateTimeInput = document.querySelector('input[name="Exam_Date_Time"]');
-    const examEndTimeInput = document.querySelector('input[name="Exam_End_Time"]');
+    const examDateTimeInput = document.querySelector('input[name="Exam_DateTime"]');
 
     // Update the form fields based on the selected Matrix Code
     matrixCodeDropdown.addEventListener('change', function () {
@@ -236,7 +237,7 @@ fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&
                 });
                 startTimeInput.value = '13:00';
                 endTimeInput.value = '15:50';
-                examDateTimeInput.value = '2023-12-06T12:00';
+                examDateTimeInput.value = '2023-12-06 12:00 - 15:50';
                 break;
             case 'FH':
                 bannerCodesInput.value = 'F4';
@@ -245,7 +246,7 @@ fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&
                 });
                 startTimeInput.value = '19:00';
                 endTimeInput.value = '21:50';
-                examDateTimeInput.value = '2023-12-08T19:00';
+                examDateTimeInput.value = '2023-12-08 19:00 - 21:50';
                 break;
 
             // Add more cases here
