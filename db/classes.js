@@ -30,6 +30,34 @@ const createClass = async (classData) => {
 			throw error
 		}
 
+		// Need to check the day of the week and time of day.
+		const teacherConflicts = await pb.collection("Courses").getFullList({
+            filter: `Instructor = "${classData.Instructor}" && Semester_ID = "${classData.Semester_ID}" && Start_Time = "${classData.Start_Time}" && End_Time = 
+			"${classData.End_Time}"`,
+        })
+
+		if (teacherConflicts.length > 0) {
+			const error = new Error(
+				"Test TEACHER CONFLICT!."
+			)
+			error.field = "Instructor"
+			throw error
+		}
+
+		// ClassRoom Conflict
+		const roomConflict = await pb.collection("Courses").getFullList({
+			filter: `Room_Preferences = "${classData.Room_Preferences}" && Semester_ID = "${classData.Semester_ID}" && Start_Time = "${classData.Start_Time}" && End_Time = 
+			"${classData.End_Time}"`,
+			})
+		
+			if (roomConflict.length > 0) {
+			const error = new Error(
+				"Room is booked by another class"
+			)
+			error.field = "Room_Preferences"
+			throw error
+			}
+
 		const record = await pb.collection("Courses").create(classData)
 		return record
 	} catch (error) {
