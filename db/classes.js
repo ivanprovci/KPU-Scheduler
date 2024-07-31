@@ -4,7 +4,7 @@ const createClass = async (classData) => {
 	try {
 		// Check if a class with the same CRN already exists
 		const existingCrnClasses = await pb.collection("Courses").getFullList({
-			filter: `CRN = "${classData.CRN}"`,
+			filter: `CRN = "${classData.CRN}" && Semester_ID = "${classData.Semester_ID}"`,
 		})
 
 		if (existingCrnClasses.length > 0) {
@@ -19,7 +19,7 @@ const createClass = async (classData) => {
 		const existingCourseClasses = await pb
 			.collection("Courses")
 			.getFullList({
-				filter: `Course = "${classData.Course}" && Section = "${classData.Section}"`,
+				filter: `Course = "${classData.Course}" && Section = "${classData.Section}" && Semester_ID = "${classData.Semester_ID}"`,
 			})
 
 		if (existingCourseClasses.length > 0) {
