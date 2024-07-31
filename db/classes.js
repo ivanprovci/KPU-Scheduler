@@ -30,27 +30,66 @@ const createClass = async (classData) => {
 			throw error
 		}
 
-		// Need to check the day of the week and time of day.
-		const teacherConflicts = await pb.collection("Courses").getFullList({
-            filter: `Instructor = "${classData.Instructor}" && Semester_ID = "${classData.Semester_ID}" && Start_Time = "${classData.Start_Time}" && End_Time = 
-			"${classData.End_Time}"`,
-        })
+		 // Construct the query to check for overlapping time and matching days
+		 const days = ['M', 'T', 'W', 'R', 'F', 'S', 'U'];
+		 const daysFilterParts = days
+			 .filter(day => classData[day])
+			 .map(day => `${day} = true`);
+ 
+		 // If no days are selected, handle it appropriately
+		 const daysFilter = daysFilterParts.length > 0 ? `(${daysFilterParts.join(' || ')})` : '';
+ 
+		 // Construct the instructor filter
+		 const instructorFilterParts = [
+			 `Instructor = "${classData.Instructor}"`,
+			 `Start_Time <= "${classData.Start_Time}"`,
+			 `End_Time >= "${classData.End_Time}"`,
+			 `Semester_ID = "${classData.Semester_ID}"`,
+			 daysFilter
+		 ].filter(part => part !== '');
+ 
+		 const instructorFilter = instructorFilterParts.join(' && ');
+ 
+		 console.log("Generated filter: ", instructorFilter);
+		 
+		 const existingInstructorClasses = await pb.collection("Courses").getFullList({
+			filter: instructorFilter,
+		 });
 
-		if (teacherConflicts.length > 0) {
-			const error = new Error(
-				"Test TEACHER CONFLICT!."
-			)
-			error.field = "Instructor"
-			throw error
-		}
+		 console.log(existingInstructorClasses)
+ 
+		 if (existingInstructorClasses.length > 0) {
+			 const error = new Error(
+				 "This instructor is already teaching another class at the same time. Please use another instructor."
+			 );
+			 error.field = "Instructor";
+			 throw error;
+		 }
 
 		// ClassRoom Conflict
-		const roomConflict = await pb.collection("Courses").getFullList({
-			filter: `Room_Preferences = "${classData.Room_Preferences}" && Semester_ID = "${classData.Semester_ID}" && Start_Time = "${classData.Start_Time}" && End_Time = 
-			"${classData.End_Time}"`,
-			})
+		 // Construct the query to check for overlapping time and matching days
+		 const days1 = ['M', 'T', 'W', 'R', 'F', 'S', 'U'];
+		 const daysFilterParts1 = days1
+			 .filter(day => classData[day])
+			 .map(day => `${day} = true`);
+ 
+		 // If no days are selected, handle it appropriately
+		 const daysFilter1 = daysFilterParts1.length > 0 ? `(${daysFilterParts1.join(' || ')})` : '';
+ 
+		 // Construct the instructor filter
+		 const RoomPreferencesFilterParts = [
+			 `Room_Preferences = "${classData.Room_Preferences}"`,
+			 `Start_Time <= "${classData.Start_Time}"`,
+			 `End_Time >= "${classData.End_Time}"`,
+			 `Semester_ID = "${classData.Semester_ID}"`,
+			 daysFilter1
+		 ].filter(part => part !== '');
+ 
+		 const RoomPreferences = RoomPreferencesFilterParts.join(' && ');
+ 
+		 console.log("Generated filter: ", RoomPreferences);
 		
-			if (roomConflict.length > 0) {
+			if (RoomPreferences.length > 0) {
 			const error = new Error(
 				"Room is booked by another class"
 			)
