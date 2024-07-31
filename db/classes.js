@@ -38,8 +38,8 @@ const createClass = async (classData) => {
 		// Construct the instructor filter
 		const instructorFilterParts = [
 			`Instructor = "${classData.Instructor}"`,
-			`Start_Time <= "${classData.End_Time}"`,
-			`End_Time >= "${classData.Start_Time}"`,
+			`Start_Time <= "${classData.Start_Time}"`,
+			`End_Time >= "${classData.End_Time}"`,
 			`Semester_ID = "${classData.Semester_ID}"`,
 			daysFilter
 		].filter(part => part !== '');
@@ -69,8 +69,8 @@ const createClass = async (classData) => {
 
 		const roomPreferencesFilterParts = [
 			`Room_Preferences = "${classData.Room_Preferences}"`,
-			`Start_Time <= "${classData.End_Time}"`,
-			`End_Time >= "${classData.Start_Time}"`,
+			`Start_Time <= "${classData.Start_Time}"`,
+			`End_Time >= "${classData.End_Time}"`,
 			`Semester_ID = "${classData.Semester_ID}"`,
 			daysFilter1
 		].filter(part => part !== '');
