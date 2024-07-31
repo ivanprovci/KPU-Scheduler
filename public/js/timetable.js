@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td>${classData.Start_Time}</td>
                         <td>${classData.End_Time}</td>
                         <td>${classData.Exam_Date_Time}</td>
+                        <td>${classData.Exam_End_Time}</td>
                         <td>${classData.Room_Type}</td>
                         <td>${classData.Room_Preferences}</td>
                         <td>${classData.Instructor}</td>
@@ -106,16 +107,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
     
-    // Function to download CSV
-    function downloadCSV(csvContent, fileName) {
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+  // Function to download CSV
+  function downloadCSV(csvContent, fileName) {
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
     // Event listener to handle CSV export
     exportCSVButton.addEventListener('click', function () {
@@ -123,33 +124,43 @@ document.addEventListener('DOMContentLoaded', function () {
         let csvRow = [];
         const headers = document.querySelectorAll(".schedule-table thead th");
         headers.forEach(header => {
+            if (header.textContent === "Exam Date & Time" || header.textContent === "Exam End Time") {
+               return;  // Skip these headers
+            }
             csvRow.push('"' + header.textContent + '"');
+     });
+    csvRow.push('"Exam Date & Time"');  // Add combined header
+    csvContent += csvRow.join(",") + "\r\n";
+
+    // Fetch rows and each cell into CSV format
+    const rows = document.querySelectorAll(".schedule-table tbody tr");
+    rows.forEach(row => {
+        csvRow = [];
+        const cells = row.querySelectorAll("td");
+        let examDateTime = "";
+        let examEndTime = "";
+        cells.forEach((cell, index) => {
+            if (headers[index].textContent === "Exam Date & Time") {
+                examDateTime = cell.textContent;
+            } else if (headers[index].textContent === "Exam End Time") {
+                examEndTime = cell.textContent;
+            } else if (['M', 'T', 'W', 'R', 'F', 'S', 'U'].includes(headers[index].textContent) && cell.textContent === "true") {
+                csvRow.push('"' + headers[index].textContent + '"');  // Use the day letter
+            } else if (['M', 'T', 'W', 'R', 'F', 'S', 'U'].includes(headers[index].textContent) && cell.textContent === "false") {
+                csvRow.push('""');  // Leave blank
+            } else {
+                csvRow.push('"' + cell.textContent.replace(/"/g, '""') + '"');  // Handle quotes by doubling them
+            }
         });
+        csvRow.push('"' + examDateTime + ' - ' + examEndTime + '"');  // Add combined exam date and end time
         csvContent += csvRow.join(",") + "\r\n";
-
-        // Fetch rows and each cell into CSV format
-        const rows = document.querySelectorAll(".schedule-table tbody tr");
-        rows.forEach(row => {
-            csvRow = [];
-            const cells = row.querySelectorAll("td");
-            cells.forEach((cell, index) => {
-                // Handle day columns specially
-                if (['M', 'T', 'W', 'R', 'F', 'S', 'U'].includes(headers[index].textContent) && cell.textContent === "true") {
-                    csvRow.push('"' + headers[index].textContent + '"');  // Use the day letter
-                } else if (['M', 'T', 'W', 'R', 'F', 'S', 'U'].includes(headers[index].textContent) && cell.textContent === "false") {
-                    csvRow.push('""');  // Leave blank
-                } else {
-                    csvRow.push('"' + cell.textContent.replace(/"/g, '""') + '"');  // Handle quotes by doubling them
-                }
-            });
-            csvContent += csvRow.join(",") + "\r\n";
-        });
-
-        // Use semester name for file name if available
-        const selectedSemesterName = semesterSelect.options[semesterSelect.selectedIndex].text;
-        const fileName = selectedSemesterName ? `${selectedSemesterName.replace(/ /g, '_')}.csv` : 'timetable.csv';
-
-        // Download CSV file
-        downloadCSV(csvContent, fileName);
     });
+
+    // Use semester name for file name if available
+    const selectedSemesterName = semesterSelect.options[semesterSelect.selectedIndex].text;
+    const fileName = selectedSemesterName ? `${selectedSemesterName.replace(/ /g, '_')}.csv` : 'timetable.csv';
+
+    // Download CSV file
+    downloadCSV(csvContent, fileName);
+});
 });

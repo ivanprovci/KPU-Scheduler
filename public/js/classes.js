@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Fetch semester details using the ID
     try {
-        const response = await fetch(`http://localhost:3000/semesters/getName?semesterId=${semesterId}`);
+        const response = await fetch(`http://localhost:3000/semesters/getName?semesterId=${semesterId}`)
         const semesterData = await response.json();
 
         // Display the semester name
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         // Add the Semester ID to the class data
-        classData.semesterId = semesterId;
+        classData.Semester_ID = semesterId;
 
         // Set the Course field with the Class_Number value
         classData.Course = formData.get('Class_Number');
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         // Check for duplicate course number and section, and CRN conflicts
-        fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}&semesterId=${classData.semesterId}`)
+        fetch(`/classes/check-duplicate?crn=${classData.CRN}&course=${classData.Course}&section=${classData.Section}&semesterId=${classData.Semester_ID}`)
             .then(response => response.json())
             .then(data => {
                 if (data.exists) {
@@ -195,35 +195,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
     });
 
-    document.getElementById('classForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const classEntries = document.querySelectorAll('.class-entry');
-        const headers = ["CRN", "Subject", "Class_Number", "Section", "Campus", "Class_Size", "Status", "Instructional_Method", "Matrix_Code", "Banner_Codes", "Exam_Y_N", "Meeting_Type", "Session", "Non_Standard_Start_Date", "Non_Standard_End_Date", "Week_Day", "Start_Time", "End_Time", "Exam_Date_Time", "Room_Type", "Room_Preferences", "Instructor", "Crosslist_Code", "Link_ID", "Additional_Information", "Zero_Textbook_Cost_Adobe_Creative_Cloud", "Program_Restriction", "Reserved_Seats", "Overflow_Y_N", "Date_Reserves_to_be_Removed", "Fee_Detail_Code", "Addtl_Mandatory_Course_Fee", "Funding_Source"];
-        const rows = [headers.join(',')];
-
-        classEntries.forEach(entry => {
-            const row = headers.map(header => {
-                if (header in weekDayMap) {
-                    return entry.querySelector(`input[name="Week_Days"][value="${header}"]`).checked ? 'true' : 'false';
-                } else if (header === "Exam_Date_Time") {
-                    return new Date(entry.querySelector(`input[name="${header}"]`).value).toISOString();
-                } else {
-                    return entry.querySelector(`input[name="${header}"], select[name="${header}"]`).value;
-                }
-            });
-            rows.push(row.join(','));
-        });
-
-        const csvContent = "data:text/csv;charset=utf-8," + rows.join("\n");
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "classes_data.csv");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
-
     document.getElementById('additionalInfoCheck').addEventListener('change', function () {
         const additionalInfo = document.getElementById('additionalInfo');
         if (this.checked) {
@@ -239,6 +210,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const startTimeInput = document.querySelector('input[name="Start_Time"]');
     const endTimeInput = document.querySelector('input[name="End_Time"]');
     const examDateTimeInput = document.querySelector('input[name="Exam_Date_Time"]');
+    const examEndTimeInput = document.querySelector('input[name="Exam_End_Time"]');
 
     // Update the form fields based on the selected Matrix Code
     matrixCodeDropdown.addEventListener('change', function () {
