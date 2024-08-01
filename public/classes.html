@@ -34,13 +34,13 @@
             <input type="hidden" id="semesterId" name="semesterId" value="">
             <div id="classEntry" class="class-entry border p-3 mb-3">
                 <div class="form-group">
-                    <label for="CRN">CRN</label>
-                    <input type="number" class="form-control" name="CRN" placeholder="Enter CRN" oninput="this.value = this.value.slice(0, 5)">
+                    <label for="CRN" class="required">CRN</label>
+                    <input type="number" class="form-control" name="CRN" placeholder="Enter CRN" required oninput="this.value = this.value.slice(0, 5)">
                 </div>
                 <div class="form-group">
-                    <label for="Subject">Subject</label>
-                    <select class="form-control" name="Subject">
-                        <option>Select Subject</option>
+                    <label for="Subject" class="required">Subject</label>
+                    <select class="form-control" name="Subject" required>
+                        <option value="" disabled selected>Select Subject</option>
                         <option>INFO</option>
                         <option>PHIL</option>
                         <option>BUQU</option>
@@ -48,14 +48,14 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="Class_Number">Class Number</label>
-                    <select class="form-control" name="Class_Number">
+                    <label for="Class_Number" class="required">Class Number</label>
+                    <select class="form-control" name="Class_Number" required>
                         <option>Select Class Number</option>
                     </select>
                 <div class="form-group">
-                    <label for="Section">Section</label>
-                    <select class="form-control" name="Section" >
-                    <option>Select Section</option>
+                    <label for="Section" class="required">Section</label>
+                    <select class="form-control" name="Section" required>
+                    <option value="" disabled selected>Select Section</option>
                     <option>A10</option> <!-- Online -->
                     <option>R10</option> <!-- Richmond -->
                     <option>S10</option> <!-- Surrey -->
@@ -69,6 +69,7 @@
                 <div class="form-group">
                     <label for="Campus">Campus</label>
                     <select class="form-control" name="Campus">
+                        <option value="" disabled selected>Select Campus</option>
                         <option>Richmond</option>
                         <option>Surrey</option>
                         <option>Langley</option>
@@ -78,27 +79,30 @@
                 <div class="form-group">
                     <label for="Class_Size">Class Size</label>
                     <select class="form-control" name="Class_Size" placeholder="Select Class Size">
+                    <option value="" disabled selected>Select Class Size</option>
                     <option>35</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="Status">Status</label>
                     <select class="form-control" name="Status">
+                        <option value="" disabled selected>Select Status</option>
                         <option>Active</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="Instructional_Method">Instructional Method</label>
                     <select class="form-control" name="Instructional_Method">
+                        <option value="" disabled selected>Select Instructional Method</option>
                         <option>In-person</option>
                         <option>Online Synchronous</option>
                         <option>Blended Synchronous</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="Matrix_Code">Matrix Code</label>
-                    <select class="form-control" name="Matrix_Code">
-                        <option>Select Matrix Code</option>
+                    <label for="Matrix_Code" class="required">Matrix Code</label>
+                    <select class="form-control" name="Matrix_Code" required>
+                        <option value="" disabled selected>Select Matrix Code</option>
                         <option>OFF</option>
                         <option>ASYNC</option>
                         <option>1</option>
@@ -265,8 +269,9 @@
                     <input type="text" class="form-control" name="Banner_Codes" placeholder="Enter Banner Codes" oninput="this.value = this.value.slice(0, 2)">
                 </div>
                 <div class="form-group">
-                    <label for="Exam_Y_N">Exam Y/N</label>
-                    <select class="form-control" name="Exam_Y_N">
+                    <label for="Exam_Y_N" class="required">Exam Y/N</label>
+                    <select class="form-control" name="Exam_Y_N" required>
+                        <option value="" disabled selected>Select Exam Y/N</option>
                         <option>Y</option>
                         <option>N</option>
                     </select>
@@ -274,12 +279,14 @@
                 <div class="form-group">
                     <label for="Meeting_Type">Meeting Type</label>
                     <select class="form-control" name="Meeting_Type">
+                        <option value="" disabled selected>Select Meeting Type</option>
                         <option>Class</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="Session">Session</label>
                     <select class="form-control" name="Session">
+                        <option value="" disabled selected>Select Session</option>
                         <option>Full</option>
                         <option>Online</option>
                     </select>
@@ -315,8 +322,9 @@
                     <input type="text" class="form-control" name="Exam_DateTime" placeholder="Enter Exam Date & Time (e.g. 2023-12-08 19:00 - 21:50)">
                 </div>
                 <div class="form-group">
-                    <label for="Room_Type">Room Type</label>
-                    <select class="form-control" name="Room_Type">
+                    <label for="Room_Type" class="required">Room Type</label>
+                    <select class="form-control" name="Room_Type" required>
+                    <option value="" disabled selected>Select Room Type</option>
                     <option>Select Room Type</option>
                     <option>Lab - Computer</option>
                     <option>eClassroom</option>
@@ -324,12 +332,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="Room_Preferences">Room Preferences</label>
-                    <input type="text" class="form-control" name="Room_Preferences" placeholder="Enter Room Preferences (e.g. CEDAR 1050)">
+                    <label for="Room_Preferences" class="required">Room Preferences</label>
+                    <input type="text" class="form-control" name="Room_Preferences" placeholder="Enter Room Preferences (e.g. CEDAR 1050)" required>
                 </div>
                 <div class="form-group">
-                    <label for="Instructor">Instructor</label>
-                    <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name (Last Name, First Name)">
+                    <label for="Instructor" class="required">Instructor</label>
+                    <input type="text" class="form-control" name="Instructor" placeholder="Enter Instructor Name (Last Name, First Name)" required>
                 </div>
 
                 <div class="form-group">
