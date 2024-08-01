@@ -90,7 +90,38 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('addClass').addEventListener('click', function () {
         console.log("Add Another Class button clicked");
 
+        // Select the form and required fields
         const form = document.getElementById('classForm');
+        const requiredFields = [
+            'CRN', 
+            'Subject', 
+            'Class_Number', 
+            'Section', 
+            'Matrix_Code',
+            'Exam_Y_N', 
+            'Room_Type', 
+            'Room_Preferences', 
+            'Instructor'
+        ];
+
+        let allFieldsValid = true;
+
+        // Loop through required fields to check if they are filled
+        requiredFields.forEach(function (field) {
+            const fieldElement = form.elements[field];
+            if (fieldElement && !fieldElement.value) {
+                fieldElement.classList.add('is-invalid');
+                allFieldsValid = false;
+            } else {
+                fieldElement.classList.remove('is-invalid');
+            }
+        });
+
+        if (!allFieldsValid) {
+            alert('Please fill out all required fields.');
+            return;
+        }
+
         const formData = new FormData(form);
         const classData = {};
 
@@ -417,4 +448,22 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Append the sorted options
     optionsArray.forEach(option => selectElement.appendChild(option));
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const examYN = document.querySelector('select[name="Exam_Y_N"]');
+    const examDateTime = document.querySelector('input[name="Exam_DateTime"]');
+
+    function toggleExamDateTime() {
+        if (examYN.value === 'N') {
+            examDateTime.disabled = true;
+        } else {
+            examDateTime.disabled = false;
+        }
+    }
+
+    examYN.addEventListener('change', toggleExamDateTime);
+
+    // Initialize the state based on the current selection
+    toggleExamDateTime();
 });
