@@ -1,13 +1,11 @@
 const { pb } = require("../db/pocketbase-connection.js")
 
 // Middleware to authenticate requests
-const authenticateToken = async (req, res, next) => {
+const authenticateToken = (req, res, next) => {
 	const token = req.cookies.token // Extract the token from the cookies
 
 	if (!token) {
-		return res
-			.status(401)
-			.send({ message: "Access denied. No token provided." })
+		return res.status(401).render("401")
 	}
 
 	try {
@@ -15,7 +13,7 @@ const authenticateToken = async (req, res, next) => {
 		pb.authStore.save(token, null)
 
 		if (!pb.authStore.isValid) {
-			return res.status(401).send({ message: "Invalid token" })
+			return res.status(401).render("401")
 		}
 
 		// Optionally, you can fetch the user information

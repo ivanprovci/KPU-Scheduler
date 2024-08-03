@@ -4,11 +4,6 @@ const router = express.Router();
 const { pb } = require('../db/pocketbase-connection');
 const { getAllSemesters} = require("../db/semester.js")
 
-// Serve the timetable HTML page
-router.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/timetable.html'));
-});
-
 // Fetch all semesters
 router.get('/api/semesters', async (req, res) => {
     try {

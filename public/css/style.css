@@ -346,3 +346,11 @@ section:nth-child(odd) {
     content: " *";
     color: red;
 }
+
+.h-full {
+    min-height: 100vh;
+}
+
+.error-mr {
+    margin-right: 100px;
+}

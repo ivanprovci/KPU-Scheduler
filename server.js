@@ -1,25 +1,9 @@
 const express = require("express")
 const path = require("path")
 const cookieParser = require("cookie-parser")
-const authenticateToken = require("./middleware/authMiddleware.js")
+const authenticateToken = require("./middleware/authMiddleware")
 const app = express()
 const port = 3000
-
-// Define where all your static files are (in this case, the public folder)
-app.use(
-	express.static("public", {
-		// when a user types the url into the search bar with no file extension at the end,
-		// append '.html' to the end of the url to serve the html file for that route
-		//
-		// website.com/products.html    will work without the 'extensions' option below
-		// website.com/products         will NOT work without the extensions option below
-
-		extensions: ["html", "htm"],
-	})
-)
-
-// Serve static files from the "db" directory.
-app.use("/db", express.static(path.join(__dirname, "db")))
 
 // Middleware for getting data from forms
 app.use(express.urlencoded({ extended: true }))
@@ -46,6 +30,20 @@ app.use("/semesters", authenticateToken, semestersRouter)
 app.use("/timetable", authenticateToken, timetableRouter)
 app.use("/login", loginRouter)
 app.use("/logout", logoutRouter)
+
+// KEEP THIS MIDDLEWARE BELOW ALL ROUTING MIDDLEWARE
+// Define where all your static files are (in this case, the public folder)
+app.use(
+	express.static("public", {
+		// when a user types the url into the search bar with no file extension at the end,
+		// append '.html' to the end of the url to serve the html file for that route
+		//
+		// website.com/products.html    will work without the 'extensions' option below
+		// website.com/products         will NOT work without the extensions option below
+
+		extensions: ["html", "htm"],
+	})
+)
 
 // The 404 (error) Route (ALWAYS Keep this as the last route)
 app.get("*", (req, res) => {

@@ -34,8 +34,4 @@ router.get("/check-auth", async (req, res) => {
 	}
 })
 
-router.get("/", (req, res) => {
-	res.redirect("login")
-})
-
 module.exports = router

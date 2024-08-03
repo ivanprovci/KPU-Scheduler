@@ -3,15 +3,12 @@ const {
 	createSemester,
 	deleteSemesterByID,
 	updateSemesterByID,
-    getSemesterFromId
+	getSemesterFromId,
 } = require("../db/semester.js")
 
 const express = require("express")
 const router = express.Router()
 
-router.get("/", (req, res) => {
-	res.redirect("semesters")
-})
 
 // get all semesters
 router.get("/semesters", async (req, res) => {
@@ -84,13 +81,13 @@ router.patch("/semesters", async (req, res) => {
 })
 
 router.get("/getName", async (req, res) => {
-    const semesterId = req.query.semesterId
-    try {
-        const semesterData = await getSemesterFromId(semesterId)
-        res.status(200).json(semesterData.Name)
-    } catch (error) {
-        res.sendStatus(500)
-    }
+	const semesterId = req.query.semesterId
+	try {
+		const semesterData = await getSemesterFromId(semesterId)
+		res.status(200).json(semesterData.Name)
+	} catch (error) {
+		res.sendStatus(500)
+	}
 })
 
 module.exports = router
