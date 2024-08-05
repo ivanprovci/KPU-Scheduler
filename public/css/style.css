@@ -183,37 +183,6 @@ section:nth-child(odd) {
 }
 
 /*View classes page*/
-/* Responsive adjustments */
-@media (max-width: 768px) {
-	/* Adjust margin and padding for filter buttons */
-	.btn-group {
-		margin-bottom: 5px;
-	}
-}
-
-@media (max-width: 576px) {
-	/* Stack filter buttons vertically on extra small screens */
-	.btn-group {
-		display: block;
-		margin-bottom: 10px;
-	}
-}
-
-/* Ensure table remains scrollable on small screens */
-.table-responsive {
-	overflow-x: auto;
-}
-
-.set {
-	position: relative;
-	left: 45px;
-}
-.pos {
-	position: relative;
-	left: 0px;
-	top: 10px;
-	font-style: italic;
-}
 
 .class-entry {
 	border: 1px solid #ccc;
@@ -271,22 +240,20 @@ section:nth-child(odd) {
 /* Styles for the schedule table */
 .table-container {
 	overflow-x: auto; /* Enable horizontal scrolling */
-	margin: 20px auto; /* Center the table with margin on top and bottom, auto on left and right */
 	padding: 0 20px; /* Add some padding for extra spacing on left and right */
-	max-width: 96%; /* Set a maximum width for the container */
 }
 
 .schedule-table {
 	table-layout: auto; /* Automatically adjust column widths */
 	width: 100%; /* Table takes up full width of the container */
 	border-collapse: collapse;
-	font-size: 16px;
+	font-size: 13px;
 	text-align: left;
 }
 
 .schedule-table th,
 .schedule-table td {
-	padding: 12px 15px;
+	padding: 11px;
 	border: 1px solid #ddd;
 }
 
@@ -305,6 +272,22 @@ section:nth-child(odd) {
 .schedule-table td[colspan] {
 	text-align: center;
 	color: #999; /* Optional: for placeholder rows */
+}
+
+.column-sm {
+	min-width: 100px;
+}
+
+.column-md {
+	min-width: 140px;
+}
+
+.column-lg {
+	min-width: 180px;
+}
+
+.column-xl {
+	min-width: 200px;
 }
 
 /* Filters styling */
@@ -326,31 +309,36 @@ section:nth-child(odd) {
 	border-radius: 4px;
 }
 
+/* remove space between horizontal scroll bar and the table */
+.table {
+	margin-bottom: initial;
+}
+
 .table-title {
 	text-align: center;
-	margin-bottom: 20px;
+	margin: 20px 0px;
 }
 
 .is-invalid {
-    border-color: #dc3545;
-    background-color: #f8d7da;
+	border-color: #dc3545;
+	background-color: #f8d7da;
 }
 
 .error-message {
-    color: #dc3545;
-    margin-top: 0.25rem;
-    font-size: 80%;
+	color: #dc3545;
+	margin-top: 0.25rem;
+	font-size: 80%;
 }
 
 .required:after {
-    content: " *";
-    color: red;
+	content: " *";
+	color: red;
 }
 
 .h-full {
-    min-height: 100vh;
+	min-height: 100vh;
 }
 
 .error-mr {
-    margin-right: 100px;
+	margin-right: 100px;
 }

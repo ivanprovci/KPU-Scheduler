@@ -29,20 +29,18 @@
         </div>
     </nav>
 
+    <h2 class="table-title">Semester Timetable</h2>
+
+    <!-- Dropdown to select semester -->
+    <div class="form-group flex">
+        <label for="semesterSelect" class="col-form-label ml-4 mr-3">Viewing Semester:</label>
+        <select id="semesterSelect" class="form-control" style="width: initial">
+            <!-- Options will be dynamically loaded -->
+        </select>
+    </div>
     <div class="table-container"> <!-- Use container-fluid to span the full width -->
-        <h2 class="table-title">Course Timetable</h2>
 
-        <!-- Dropdown to select semester -->
-        <div class="form-group row">
-            <label for="semesterSelect" class="col-sm-2 col-form-label text-right">Select Semester:</label>
-            <div class="col-sm-4">
-                <select id="semesterSelect" class="form-control">
-                    <!-- Options will be dynamically loaded -->
-                </select>
-            </div>
-        </div>
-
-        <table class="schedule-table table table-bordered w-100"> <!-- Add w-100 class -->
+        <table class="schedule-table table-scrollable table">
             <thead>
                 <tr class="filter-container">
                     <th><input type="text" class="filter-input"></th>
@@ -99,8 +97,8 @@
                     <th>Exam Y/N</th>
                     <th>Meeting Type</th>
                     <th>Session</th>
-                    <th>Non-Standard Start Date</th>
-                    <th>Non-Standard End Date</th>
+                    <th class="column-md">Non-Standard Start Date</th>
+                    <th class="column-md">Non-Standard End Date</th>
                     <th>M</th>
                     <th>T</th>
                     <th>W</th>
@@ -110,20 +108,20 @@
                     <th>U</th>
                     <th>Start Time</th>
                     <th>End Time</th>
-                    <th>Exam Date & Time</th>
+                    <th class="column-lg">Exam Date & Time</th>
                     <th>Room Type</th>
                     <th>Room Preferences</th>
-                    <th>Instructor (Last Name, First Name)</th>
+                    <th class="column-lg">Instructor (Last Name, First Name)</th>
                     <th>Crosslist Code</th>
                     <th>Link ID</th>
                     <th>Additional Information</th>
-                    <th>Zero Textbook Cost / Adobe Creative Cloud</th>
+                    <th class="column-lg">Zero Textbook Cost / Adobe Creative Cloud</th>
                     <th>Program Restrictions</th>
                     <th>Reserved Seats</th>
                     <th>Overflow (Y/N)</th>
-                    <th>Date Reserves to be Removed (One Date Only)</th>
-                    <th>Fee Detail Code</th>
-                    <th>Add'tl Mandatory Course Fee</th>
+                    <th class="column-xl">Date Reserves to be Removed (One Date Only)</th>
+                    <th class="column-sm">Fee Detail Code</th>
+                    <th class="column-md">Add'tl Mandatory Course Fee</th>
                     <th>Funding Source</th>
                 </tr>
             </thead>
@@ -131,12 +129,8 @@
                 <!-- Rows will be dynamically inserted here -->
             </tbody>
         </table>
-        <div class="form-group row">
-            <div class="col-sm-10">
-                <button id="exportCSV" class="btn btn-primary">Export Timetable to CSV</button>
-            </div>
-        </div>
     </div>
+    <button id="exportCSV" class="btn btn-primary mt-4 ml-3">Export Timetable to CSV</button>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
