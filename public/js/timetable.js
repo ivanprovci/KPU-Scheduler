@@ -223,8 +223,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		rows.forEach((row) => {
 			csvRow = []
 			const cells = row.querySelectorAll("td")
+
 			cells.forEach((cell, index) => {
-				csvRow.push(`"${cell.textContent.replace(/"/g, '""')}"`)
+				if (index > 0) {
+					csvRow.push(`"${cell.textContent.replace(/"/g, '""')}"`)
+				}
 			})
 			csvContent += csvRow.join(",") + "\r\n"
 		})
