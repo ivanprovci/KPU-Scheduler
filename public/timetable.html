@@ -43,9 +43,7 @@
         <table class="schedule-table table-scrollable table">
             <thead>
                 <tr class="filter-container">
-                    <th><input type="text" class="filter-input"></th>
-                    <th><input type="text" class="filter-input"></th>
-                    <th><input type="text" class="filter-input"></th>
+                    <th></th> <!-- Column for checkboxes -->
                     <th><input type="text" class="filter-input"></th>
                     <th><input type="text" class="filter-input"></th>
                     <th><input type="text" class="filter-input"></th>
@@ -84,6 +82,7 @@
                     <th><input type="text" class="filter-input"></th>
                 </tr>
                 <tr>
+                    <th></th> <!-- Column for checkboxes -->
                     <th>CRN</th>
                     <th>Subject</th>
                     <th>Course</th>
@@ -130,7 +129,10 @@
             </tbody>
         </table>
     </div>
-    <button id="exportCSV" class="btn btn-primary mt-4 ml-3">Export Timetable to CSV</button>
+    <div class="button-container">
+        <button id="exportCSV" class="btn btn-primary mt-4">Export Timetable to CSV</button>
+        <button id="deleteSelected" class="btn btn-danger mt-4" style="display: none;">Delete Selected Classes</button>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const semesterSelect = document.getElementById("semesterSelect")
 	const timetableBody = document.getElementById("timetableBody")
 	const exportCSVButton = document.getElementById("exportCSV")
+	const deleteSelectedButton = document.getElementById("deleteSelected")
 
 	// Add default option to the dropdown
 	const defaultOption = document.createElement("option")
@@ -56,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					// Generate the table row based on actual keys in classData
 					const row = document.createElement("tr")
 					row.innerHTML = `
+                        <td><input type="checkbox" class="class-checkbox" data-id="${classData.id}"></td>
                         <td>${classData.CRN}</td>
                         <td>${classData.Subject}</td>
                         <td>${classData.Course}</td>
@@ -100,11 +102,61 @@ document.addEventListener("DOMContentLoaded", function () {
                     `
 					timetableBody.appendChild(row)
 				})
+
+				// Show delete button if there are classes
+				deleteSelectedButton.style.display = data.length > 0 ? "block" : "none"
+
+				// Add event listeners to checkboxes
+				const checkboxes = document.querySelectorAll(".class-checkbox")
+				checkboxes.forEach((checkbox) => {
+					checkbox.addEventListener("change", updateDeleteButtonVisibility)
+				})
 			})
 			.catch((error) => {
 				console.error("Error fetching classes:", error)
 			})
 	}
+
+	function updateDeleteButtonVisibility() {
+		const selectedCheckboxes = document.querySelectorAll(".class-checkbox:checked")
+		deleteSelectedButton.style.display = selectedCheckboxes.length > 0 ? "block" : "none"
+	}
+
+	deleteSelectedButton.addEventListener("click", function () {
+		const selectedCheckboxes = document.querySelectorAll(".class-checkbox:checked")
+		const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.getAttribute("data-id"))
+
+		if (selectedIds.length > 0 && confirm("Are you sure you want to delete the selected classes?")) {
+			selectedIds.forEach(classId => {
+				fetch(`/timetable/api/classes/${classId}`, {
+					method: "DELETE",
+				})
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error(
+								"Network response was not ok " + response.statusText
+							)
+						}
+						return response.json()
+					})
+					.then((data) => {
+						alert(data.message)
+						// Remove the deleted classes from the table
+						selectedCheckboxes.forEach(checkbox => {
+							const row = checkbox.closest("tr")
+							row.parentNode.removeChild(row)
+						})
+						// Hide the delete button if no classes remain
+						if (timetableBody.childElementCount === 0) {
+							deleteSelectedButton.style.display = "none"
+						}
+					})
+					.catch((error) => {
+						console.error("Error deleting class:", error)
+					})
+			})
+		}
+	})
 
 	// Function to download CSV
 	function downloadCSV(csvContent, fileName) {

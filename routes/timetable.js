@@ -36,4 +36,18 @@ router.get('/api/classes', async (req, res) => {
     }
 });
 
+// Delete a class by ID
+router.delete('/api/classes/:id', async (req, res) => {
+    const classId = req.params.id;
+    try {
+        console.log(`Deleting class with ID: ${classId}`);
+        await pb.collection('Courses').delete(classId);
+        res.json({ message: "Class deleted successfully." });
+    } catch (err) {
+        console.error("Error deleting class:", err.message); 
+        console.error(err.stack); 
+        res.status(500).json({ error: err.message, stack: err.stack }); 
+    }
+});
+
 module.exports = router;

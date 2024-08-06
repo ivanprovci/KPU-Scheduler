@@ -342,3 +342,9 @@ section:nth-child(odd) {
 .error-mr {
 	margin-right: 100px;
 }
+
+.button-container {
+	display: flex;
+	justify-content: start;
+	gap: 1rem;
+}
