@@ -1,5 +1,3 @@
-// db/classes.js
-
 const { pb } = require("./pocketbase-connection.js");
 
 const createClass = async (classData) => {
@@ -62,35 +60,37 @@ const createClass = async (classData) => {
 			throw error;
 		}
 
-		// ClassRoom Conflict
-		const days1 = ['M', 'T', 'W', 'R', 'F', 'S', 'U'];
-		const daysFilterParts1 = days1.filter(day => classData[day]).map(day => `${day} = true`);
-		const daysFilter1 = daysFilterParts1.length > 0 ? `(${daysFilterParts1.join(' || ')})` : '';
+		// ClassRoom Conflict Check if not online
+		if (classData.Room_Type !== "ONLINE" && classData.Room_Type !== "eClassroom") {
+			const days1 = ['M', 'T', 'W', 'R', 'F', 'S', 'U'];
+			const daysFilterParts1 = days1.filter(day => classData[day]).map(day => `${day} = true`);
+			const daysFilter1 = daysFilterParts1.length > 0 ? `(${daysFilterParts1.join(' || ')})` : '';
 
-		const roomPreferencesFilterParts = [
-			`Room_Preferences = "${classData.Room_Preferences}"`,
-			`Start_Time <= "${classData.Start_Time}"`,
-			`End_Time >= "${classData.End_Time}"`,
-			`Semester_ID = "${classData.Semester_ID}"`,
-			daysFilter1
-		].filter(part => part !== '');
+			const roomPreferencesFilterParts = [
+				`Room_Preferences = "${classData.Room_Preferences}"`,
+				`Start_Time <= "${classData.Start_Time}"`,
+				`End_Time >= "${classData.End_Time}"`,
+				`Semester_ID = "${classData.Semester_ID}"`,
+				daysFilter1
+			].filter(part => part !== '');
 
-		const roomPreferencesFilter = roomPreferencesFilterParts.join(' && ');
+			const roomPreferencesFilter = roomPreferencesFilterParts.join(' && ');
 
-		console.log("Generated room preferences filter: ", roomPreferencesFilter);
+			console.log("Generated room preferences filter: ", roomPreferencesFilter);
 
-		const roomConflict = await pb.collection("Courses").getFullList({
-			filter: roomPreferencesFilter,
-		});
+			const roomConflict = await pb.collection("Courses").getFullList({
+				filter: roomPreferencesFilter,
+			});
 
-		console.log(roomConflict);
+			console.log(roomConflict);
 
-		if (roomConflict.length > 0) {
-			const error = new Error(
-				"Room is booked by another class"
-			);
-			error.field = "Room_Preferences";
-			throw error;
+			if (roomConflict.length > 0) {
+				const error = new Error(
+					"Room is booked by another class"
+				);
+				error.field = "Room_Preferences";
+				throw error;
+			}
 		}
 
 		const record = await pb.collection("Courses").create(classData);

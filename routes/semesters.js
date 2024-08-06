@@ -34,7 +34,11 @@ router.post("/semesters", async (req, res) => {
 			id: newSemester.id,
 		})
 	} catch (error) {
-		res.status(500).json({ message: "Error creating semester." })
+		if (error.message === "Semester already exists.") {
+			res.status(409).json({ message: error.message })
+		} else {
+			res.status(500).json({ message: "Error creating semester." })
+		}
 	}
 })
 

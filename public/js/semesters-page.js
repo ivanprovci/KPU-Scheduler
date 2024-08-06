@@ -54,11 +54,13 @@ newSemesterForm.addEventListener("submit", async (event) => {
 			newSemesterForm.reset()
 			newSemesterForm.classList.add("hidden")
 			btnCreateNewSemester.classList.remove("hidden")
+		} else if (record.status === 409) {
+			alert("Semester already exists. Please choose a different name.")
 		} else {
 			throw new Error(data.message)
 		}
 	} catch (error) {
-		console.log("Failed to create semester" + error)
+		console.log("Failed to create semester: " + error)
 	}
 })
 

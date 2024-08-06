@@ -2,9 +2,25 @@
 
 const { pb } = require("./pocketbase-connection.js")
 
+// Check if a semester with the given name already exists
+const doesSemesterExist = async (name) => {
+	try {
+		const records = await pb.collection("Semester").getFullList({
+			filter: `Name="${name}"`
+		})
+		return records.length > 0
+	} catch (error) {
+		console.error("Error in doesSemesterExist:", error)
+		throw error
+	}
+}
 // create a new semester in the semester table
 const createSemester = async (name) => {
 	try {
+		// Check if the semester already exists
+		if (await doesSemesterExist(name)) {
+			throw new Error("Semester already exists.")
+		}
 		// Create a new record in the 'Semester' collection with the given name
 		const record = await pb.collection("Semester").create({ Name: name })
 		console.log("Semester created:", record)
@@ -63,5 +79,6 @@ module.exports = {
 	getAllSemesters,
 	deleteSemesterByID,
 	updateSemesterByID,
+	doesSemesterExist,
     getSemesterFromId
 }
