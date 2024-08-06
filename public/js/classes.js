@@ -99,6 +99,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             'Section', 
             'Matrix_Code',
             'Exam_Y_N', 
+            'Start_Time',
+            'End_Time',
+            //'Exam_DateTime',
             'Room_Type', 
             'Room_Preferences', 
             'Instructor'
@@ -414,6 +417,50 @@ document.addEventListener('DOMContentLoaded', async function () {
         'TRG': { bannerCode: 'TRG1', weekDays: ['T', 'R'], startTime: '08:00', endTime: '09:50', examDateTime: '2024-03-03 08:00 - 10:00' }
     };
 
+//////////////////////////////
+/*Requires and diables start time, end time, weekdays, and exam date&time fields. This code segment is not working for Week Days Check boxes*/
+    document.querySelector('select[name="Matrix_Code"]').addEventListener('change', function () {
+            const matrixCode = this.value;
+            const isRequired = matrixCode === 'OFF' || matrixCode === 'ASYNC';
+
+            // Fields that need to be handled
+            const fields = {
+                'Start_Time': document.querySelector('input[name="Start_Time"]'),
+                'End_Time': document.querySelector('input[name="End_Time"]'),
+                'Week_Days': document.querySelectorAll('input[name="Week_Days"]'),
+                'Exam_DateTime': document.querySelector('input[name="Exam_DateTime"]'),
+                'Exam_Y_N': document.querySelector('select[name="Exam_Y_N"]')
+            };
+
+            // Set required attribute and read-only state based on matrix code
+            for (const [key, field] of Object.entries(fields)) {
+                if (field) {
+                    if (Array.isArray(field)) {
+                        field.forEach(input => {
+                            input.required = isRequired;
+                            input.readOnly = !isRequired;
+                        });
+                    } else {
+                        field.required = isRequired;
+                        field.readOnly = !isRequired;
+                    }
+                }
+            }
+
+            // Optionally, populate fields if the matrix code is not 'OFF' or 'ASYNC'
+            if (matrixCode !== 'OFF' && matrixCode !== 'ASYNC') {
+                const config = matrixCodeConfig[matrixCode] || {};
+                Object.keys(config).forEach(key => {
+                    const field = document.querySelector(`input[name="${key}"]`);
+                    if (field) {
+                        field.value = config[key];
+                        field.readOnly = true;
+                    }
+                });
+        }
+    });
+/////////////////////////////
+
     // Update the form fields based on the selected Matrix Code
     matrixCodeDropdown.addEventListener('change', function () {
         const selectedMatrixCode = this.value;
@@ -450,15 +497,41 @@ document.addEventListener('DOMContentLoaded', async function () {
     optionsArray.forEach(option => selectElement.appendChild(option));
 });
 
+
+//Autofills room preferences to 'ONLINE' if room type 'ONLINE' is selected
+document.addEventListener('DOMContentLoaded', function () {
+    const roomTypeDropdown = document.querySelector('select[name="Room_Type"]');
+    const roomPreferencesInput = document.querySelector('input[name="Room_Preferences"]');
+
+    roomTypeDropdown.addEventListener('change', function () {
+        const selectedRoomType = this.value;
+
+        if (selectedRoomType === 'ONLINE') {
+            roomPreferencesInput.value = 'ONLINE';
+        } else {
+            roomPreferencesInput.value = ''; // Clear the input if not ONLINE
+        }
+    });
+});
+
+
+//Removes input from 'exam date&time' if exam y/n 'N' is selected
 document.addEventListener('DOMContentLoaded', function () {
     const examYN = document.querySelector('select[name="Exam_Y_N"]');
     const examDateTime = document.querySelector('input[name="Exam_DateTime"]');
 
     function toggleExamDateTime() {
+
+        //console.log(`Exam Y/N value: ${examYN.value}`); // Debugging line
         if (examYN.value === 'N') {
+            // Clear the value and disable the input field
+            examDateTime.value = '';
             examDateTime.disabled = true;
+            examDateTime.removeAttribute('required'); 
         } else {
+            // Enable the input field if 'Y' is selected
             examDateTime.disabled = false;
+            examDateTime.setAttribute('required', 'required'); 
         }
     }
 
