@@ -61,7 +61,7 @@ const createClass = async (classData) => {
 		}
 
 		// ClassRoom Conflict Check if not online
-		if (classData.Room_Type !== "ONLINE" && classData.Room_Type !== "eClassroom") {
+		if (classData.Room_Type !== "ONLINE") {
 			const days1 = ['M', 'T', 'W', 'R', 'F', 'S', 'U'];
 			const daysFilterParts1 = days1.filter(day => classData[day]).map(day => `${day} = true`);
 			const daysFilter1 = daysFilterParts1.length > 0 ? `(${daysFilterParts1.join(' || ')})` : '';
