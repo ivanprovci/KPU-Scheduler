@@ -6,14 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
         rows.forEach(row => {
             let showRow = true;
 
-            if (row.cells.length === 0 || row.cells[0].textContent.trim() === '') {
-                row.style.display = '';
-                return;
-            }
-
+            // Skip the first cell which is the checkbox column
             filterInputs.forEach((input, index) => {
                 const filterValue = input.value.toLowerCase();
-                const cell = row.cells[index];
+                const cell = row.cells[index + 1]; // Adjust the index by +1 to skip checkbox column
 
                 if (cell) {
                     const cellText = cell.textContent.toLowerCase();
@@ -23,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            console.log(`Row display status: ${showRow}`); // Debug line
             row.style.display = showRow ? '' : 'none';
         });
     }
